@@ -100,8 +100,8 @@ public class DataServer {
 
 	public static void main(String[] args) {
 		DataServer dataServer = new DataServer();
-		dataServer.select();
-//		dataServer.insert();
+		dataServer.insert();
+//		dataServer.select();
 //		dataServer.update();
 //		dataServer.delete();
 	}

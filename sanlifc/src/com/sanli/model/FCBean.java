@@ -1,7 +1,7 @@
 package com.sanli.model;
 
 import java.lang.reflect.Field;
-import java.sql.Date;
+import java.util.Date;
 
 
 /**

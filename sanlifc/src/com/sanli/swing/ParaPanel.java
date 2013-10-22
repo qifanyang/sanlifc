@@ -1,11 +1,17 @@
 package com.sanli.swing;
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -14,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
+
+import net.sourceforge.jdatepicker.JDatePanel;
 
 import com.sanli.logic.TextFieldObject;
 import com.sanli.model.FCBean;
@@ -33,7 +41,8 @@ public class ParaPanel extends JPanel{
 	private List<TextFieldObject> vlist = new ArrayList<TextFieldObject>();
 	
 	
-
+	private int x;
+	private int y;
 	
 	private ParaPanel(){
 		
@@ -284,12 +293,11 @@ public class ParaPanel extends JPanel{
 		c2.gridy = 0;
 		c2.gridx = 0;
 		JLabel atimeLabel = new JLabel("合同提交项目经理-时间：", SwingConstants.RIGHT);
-		JTextField atimePara = new JTextField(10);
+		final JTextField atimePara = new JTextField(10);
 		contractPanel.add(atimeLabel, c2);
 		c2.gridx = 1;
 		contractPanel.add(atimePara, c2);
 		vlist.add(new TextFieldObject(atimePara, "a_time"));
-
 		
 		c2.gridx = 2;
 		JLabel anoteLabel = new JLabel("合同提交项目经理-备注：", SwingConstants.RIGHT);
@@ -623,6 +631,9 @@ public class ParaPanel extends JPanel{
 			}
 		});
 		
+		
+		addDatePickerEvent();
+		
 	}
 	
 	public static ParaPanel getInstance(){
@@ -633,7 +644,44 @@ public class ParaPanel extends JPanel{
 		return vlist;
 	}
 	
-	
+	private void addDatePickerEvent(){
+		for(final TextFieldObject tfo : this.vlist){
+//			tfo.getTextField().addFocusListener(new FocusAdapter() {
+//				@Override
+//				public void focusGained(FocusEvent e) {
+//					super.focusGained(e);
+//					FCBean fcBean = new FCBean();
+//					try {
+//						Field field = fcBean.getClass().getField(tfo.getName());
+//						if(field.getType() == Date.class){
+//							DatePickerFactory.showDatePicker(tfo.getTextField(), 0, 0);
+//						}
+//					} catch (Exception e1) {
+//						e1.printStackTrace();
+//					} 
+//					
+//				}
+//			});
+			
+			tfo.getTextField().addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					super.mousePressed(e);
+					FCBean fcBean = new FCBean();
+					try {
+						Field field = fcBean.getClass().getField(tfo.getName());
+						if(field.getType() == Date.class){
+							DatePickerFactory.showDatePicker(tfo.getTextField(), 0, 0);
+						}
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					} 
+				}
+			});
+			
+			
+		}
+	}
 	
 	public static void main(String[] args) {
 		ParaPanel paraPanel = new ParaPanel();

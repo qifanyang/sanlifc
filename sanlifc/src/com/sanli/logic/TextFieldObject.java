@@ -31,6 +31,9 @@ public class TextFieldObject {
 		this.name = name;
 	}
 
+	public JTextField getTextField(){
+		return textField;
+	}
 
 
 }
