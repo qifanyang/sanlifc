@@ -35,6 +35,7 @@ public class TextFieldObject {
 	public enum ValueType{
 		INT,
 		FLOAT,
-		VARCHAR
+		VARCHAR,
+		DATE
 	}
 }

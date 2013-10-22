@@ -2,6 +2,8 @@ package com.sanli.swing;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -199,7 +201,7 @@ public class ParaPanel extends JPanel{
 		contractInfoPanel.add(ptiLabel, c1);
 		c1.gridx = 1;
 		contractInfoPanel.add(ptiPara, c1);
-		vlist.add(new TextFieldObject(ptiPara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(ptiPara, ValueType.FLOAT));
 
 		
 		c1.gridx = 2;
@@ -208,7 +210,7 @@ public class ParaPanel extends JPanel{
 		contractInfoPanel.add(htwLabel, c1);
 		c1.gridx = 3;
 		contractInfoPanel.add(htwPara, c1);
-		vlist.add(new TextFieldObject(htwPara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(htwPara, ValueType.FLOAT));
 		
 		
 		c1.gridy = 1;
@@ -218,7 +220,7 @@ public class ParaPanel extends JPanel{
 		contractInfoPanel.add(htcLabel, c1);
 		c1.gridx = 1;
 		contractInfoPanel.add(htcPara, c1);
-		vlist.add(new TextFieldObject(htcPara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(htcPara, ValueType.FLOAT));
 
 		
 		c1.gridx = 2;
@@ -227,7 +229,7 @@ public class ParaPanel extends JPanel{
 		contractInfoPanel.add(htpLabel, c1);
 		c1.gridx = 3;
 		contractInfoPanel.add(htpPara, c1);
-		vlist.add(new TextFieldObject(htpPara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(htpPara, ValueType.FLOAT));
 		
 		c1.gridy = 2;
 		c1.gridx = 0;
@@ -236,7 +238,7 @@ public class ParaPanel extends JPanel{
 		contractInfoPanel.add(htcivilLabel, c1);
 		c1.gridx = 1;
 		contractInfoPanel.add(htcivilPara, c1);
-		vlist.add(new TextFieldObject(htcivilPara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(htcivilPara, ValueType.FLOAT));
 
 		
 		c1.gridx = 2;
@@ -245,7 +247,7 @@ public class ParaPanel extends JPanel{
 		contractInfoPanel.add(httLabel, c1);
 		c1.gridx = 3;
 		contractInfoPanel.add(httPara, c1);
-		vlist.add(new TextFieldObject(httPara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(httPara, ValueType.FLOAT));
 		
 		c1.gridy = 3;
 		contractInfoPanel.add(new JLabel(" "), c1);
@@ -280,7 +282,7 @@ public class ParaPanel extends JPanel{
 		contractPanel.add(atimeLabel, c2);
 		c2.gridx = 1;
 		contractPanel.add(atimePara, c2);
-		vlist.add(new TextFieldObject(atimePara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(atimePara, ValueType.DATE));
 
 		
 		c2.gridx = 2;
@@ -298,7 +300,7 @@ public class ParaPanel extends JPanel{
 		contractPanel.add(btimeLabel, c2);
 		c2.gridx = 1;
 		contractPanel.add(btimePara, c2);
-		vlist.add(new TextFieldObject(btimePara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(btimePara, ValueType.DATE));
 
 		
 		c2.gridx = 2;
@@ -316,7 +318,7 @@ public class ParaPanel extends JPanel{
 		contractPanel.add(ctimeLabel, c2);
 		c2.gridx = 1;
 		contractPanel.add(ctimePara, c2);
-		vlist.add(new TextFieldObject(ctimePara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(ctimePara, ValueType.DATE));
 
 		
 		c2.gridx = 2;
@@ -334,7 +336,7 @@ public class ParaPanel extends JPanel{
 		contractPanel.add(dtimeLabel, c2);
 		c2.gridx = 1;
 		contractPanel.add(dtimePara, c2);
-		vlist.add(new TextFieldObject(dtimePara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(dtimePara, ValueType.DATE));
 
 		
 		c2.gridx = 2;
@@ -352,7 +354,7 @@ public class ParaPanel extends JPanel{
 		contractPanel.add(etimeLabel, c2);
 		c2.gridx = 1;
 		contractPanel.add(etimePara, c2);
-		vlist.add(new TextFieldObject(etimePara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(etimePara, ValueType.DATE));
 
 		
 		c2.gridx = 2;
@@ -371,7 +373,7 @@ public class ParaPanel extends JPanel{
 		contractPanel.add(ftimeLabel, c2);
 		c2.gridx = 1;
 		contractPanel.add(ftimePara, c2);
-		vlist.add(new TextFieldObject(ftimePara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(ftimePara, ValueType.DATE));
 
 		
 		c2.gridx = 2;
@@ -408,7 +410,7 @@ public class ParaPanel extends JPanel{
 		finalPanel.add(fctimeLabel, c3);
 		c3.gridx = 1;
 		finalPanel.add(fctimePara, c3);
-		vlist.add(new TextFieldObject(fctimePara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(fctimePara, ValueType.DATE));
 
 		
 		c3.gridx = 2;
@@ -417,7 +419,7 @@ public class ParaPanel extends JPanel{
 		finalPanel.add(fwLabel, c3);
 		c3.gridx = 3;
 		finalPanel.add(fwPara, c3);
-		vlist.add(new TextFieldObject(fwPara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(fwPara, ValueType.FLOAT));
 		
 		c3.gridy = 1;
 		c3.gridx = 0;
@@ -426,7 +428,7 @@ public class ParaPanel extends JPanel{
 		finalPanel.add(fcLabel, c3);
 		c3.gridx = 1;
 		finalPanel.add(fcPara, c3);
-		vlist.add(new TextFieldObject(fcPara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(fcPara, ValueType.FLOAT));
 
 		
 		c3.gridx = 2;
@@ -435,7 +437,7 @@ public class ParaPanel extends JPanel{
 		finalPanel.add(fpLabel, c3);
 		c3.gridx = 3;
 		finalPanel.add(fpPara, c3);
-		vlist.add(new TextFieldObject(fpPara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(fpPara, ValueType.FLOAT));
 		
 		c3.gridy = 2;
 		c3.gridx = 0;
@@ -444,7 +446,7 @@ public class ParaPanel extends JPanel{
 		finalPanel.add(fcivilLabel, c3);
 		c3.gridx = 1;
 		finalPanel.add(fcivilPara, c3);
-		vlist.add(new TextFieldObject(fcivilPara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(fcivilPara, ValueType.FLOAT));
 
 		
 		c3.gridx = 2;
@@ -453,7 +455,7 @@ public class ParaPanel extends JPanel{
 		finalPanel.add(ftotalLabel, c3);
 		c3.gridx = 3;
 		finalPanel.add(ftotalPara, c3);
-		vlist.add(new TextFieldObject(ftotalPara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(ftotalPara, ValueType.FLOAT));
 		
 		tc.gridy = 1;
 		tc.gridx = 0;
@@ -476,7 +478,7 @@ public class ParaPanel extends JPanel{
 		fapiaoPanel.add(fatimeLabel, c4);
 		c4.gridx = 1;
 		fapiaoPanel.add(fatimePara, c4);
-		vlist.add(new TextFieldObject(fatimePara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(fatimePara, ValueType.DATE));
 
 		
 		c4.gridx = 2;
@@ -485,7 +487,7 @@ public class ParaPanel extends JPanel{
 		fapiaoPanel.add(fascaleLabel, c4);
 		c4.gridx = 3;
 		fapiaoPanel.add(fascalePara, c4);
-		vlist.add(new TextFieldObject(fascalePara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(fascalePara, ValueType.FLOAT));
 		
 		c4.gridx = 4;
 		JLabel famoneyLabel = new JLabel("第一批-金额：", SwingConstants.RIGHT);
@@ -493,7 +495,7 @@ public class ParaPanel extends JPanel{
 		fapiaoPanel.add(famoneyLabel, c4);
 		c4.gridx = 5;
 		fapiaoPanel.add(famoneyPara, c4);
-		vlist.add(new TextFieldObject(famoneyPara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(famoneyPara, ValueType.FLOAT));
 		
 		c4.gridy = 1;
 		c4.gridx = 0;
@@ -502,7 +504,7 @@ public class ParaPanel extends JPanel{
 		fapiaoPanel.add(fbtimeLabel, c4);
 		c4.gridx = 1;
 		fapiaoPanel.add(fbtimePara, c4);
-		vlist.add(new TextFieldObject(fbtimePara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(fbtimePara, ValueType.DATE));
 
 		
 		c4.gridx = 2;
@@ -511,7 +513,7 @@ public class ParaPanel extends JPanel{
 		fapiaoPanel.add(fbscaleLabel, c4);
 		c4.gridx = 3;
 		fapiaoPanel.add(fbscalePara, c4);
-		vlist.add(new TextFieldObject(fbscalePara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(fbscalePara, ValueType.FLOAT));
 		
 		c4.gridx = 4;
 		JLabel fbmoneyLabel = new JLabel("第二批-金额：", SwingConstants.RIGHT);
@@ -519,7 +521,7 @@ public class ParaPanel extends JPanel{
 		fapiaoPanel.add(fbmoneyLabel, c4);
 		c4.gridx = 5;
 		fapiaoPanel.add(fbmoneyPara, c4);
-		vlist.add(new TextFieldObject(fbmoneyPara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(fbmoneyPara, ValueType.FLOAT));
 		
 		
 		c4.gridy = 2;
@@ -529,7 +531,7 @@ public class ParaPanel extends JPanel{
 		fapiaoPanel.add(fctLabel, c4);
 		c4.gridx = 1;
 		fapiaoPanel.add(fctPara, c4);
-		vlist.add(new TextFieldObject(fctPara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(fctPara, ValueType.DATE));
 
 		
 		c4.gridx = 2;
@@ -538,7 +540,7 @@ public class ParaPanel extends JPanel{
 		fapiaoPanel.add(fcscaleLabel, c4);
 		c4.gridx = 3;
 		fapiaoPanel.add(fcscalePara, c4);
-		vlist.add(new TextFieldObject(fcscalePara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(fcscalePara, ValueType.FLOAT));
 		
 		c4.gridx = 4;
 		JLabel fcmoneyLabel = new JLabel("第三批-金额：", SwingConstants.RIGHT);
@@ -546,7 +548,7 @@ public class ParaPanel extends JPanel{
 		fapiaoPanel.add(fcmoneyLabel, c4);
 		c4.gridx = 5;
 		fapiaoPanel.add(fcmoneyPara, c4);
-		vlist.add(new TextFieldObject(fcmoneyPara, ValueType.VARCHAR));
+		vlist.add(new TextFieldObject(fcmoneyPara, ValueType.FLOAT));
 		
 		tc.gridx = 1;
 		add(fapiaoPanel,tc);
@@ -592,6 +594,28 @@ public class ParaPanel extends JPanel{
 		tc.gridy = 2;
 		tc.gridx = 1;
 		add(btnPanel, tc);
+		
+		selectBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(TextFieldObject tfo : vlist){
+					System.out.println(tfo.getVlaue().getText());
+//					System.out.println("aa");
+				}
+			}
+		});
+		
+		resetBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(TextFieldObject tfo : vlist){
+					tfo.getVlaue().setText("");
+				}
+				
+			}
+		});
 		
 	}
 	
