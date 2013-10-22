@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 import com.sanli.logic.TextFieldObject;
+import com.sanli.model.FCBean;
 
 /**
  * ²ÎÊýÃæ°å
@@ -224,7 +226,7 @@ public class ParaPanel extends JPanel{
 		contractInfoPanel.add(htcLabel, c1);
 		c1.gridx = 1;
 		contractInfoPanel.add(htcPara, c1);
-		vlist.add(new TextFieldObject(htcPara, "ht_transmisson"));
+		vlist.add(new TextFieldObject(htcPara, "ht_transmission"));
 
 		
 		c1.gridx = 2;
@@ -630,9 +632,34 @@ public class ParaPanel extends JPanel{
 	public List<TextFieldObject> getVList(){
 		return vlist;
 	}
+	
+	
+	
 	public static void main(String[] args) {
 		ParaPanel paraPanel = new ParaPanel();
 		System.out.println(paraPanel.vlist.size());
+		
+		//check field compare with database field
+		StringBuffer buffer = new StringBuffer();
+		ArrayList<String> list = new ArrayList<String>();
+		for(TextFieldObject tfo : paraPanel.vlist){
+			buffer.append(tfo.getName()).append("\r\n");
+			list.add(tfo.getName());
+		}
+//		System.out.println(buffer.toString());
+		
+		FCBean fcBean = new FCBean();
+		Field[] fields = fcBean.getClass().getFields();
+		int i = 0;
+		for(Field f : fields){
+			if(list.contains(f.getName())){
+				i++;
+			}else {
+				System.out.println("not contains = " + f.getName() );
+			}
+		}
+		System.out.println("i = " + i);
+		
 	}
 
 }

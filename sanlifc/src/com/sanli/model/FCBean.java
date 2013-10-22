@@ -76,19 +76,19 @@ public class FCBean {
 		}
 	}
 
-	public static void main(String[] args) {
-		System.out.println(new Date(System.currentTimeMillis()));
-		FCBean fcBean = new FCBean();
-		Field[] fields = fcBean.getClass().getFields();
-		StringBuffer buf = new StringBuffer();
-		for(Field f : fields){
-			buf.append(f.getName()).append(", ");
-		}
-		System.out.println(buf.toString());
-		buf.setLength(0);
-		for(Field f : fields){
-			buf.append("#{").append(f.getName()).append("}").append(", ");
-		}
-		System.out.println(buf.toString());
-	}
+//	public static void main(String[] args) {
+//		System.out.println(new Date(System.currentTimeMillis()));
+//		FCBean fcBean = new FCBean();
+//		Field[] fields = fcBean.getClass().getFields();
+//		StringBuffer buf = new StringBuffer();
+//		for(Field f : fields){
+//			buf.append(f.getName()).append(", ");
+//		}
+//		System.out.println(buf.toString());
+//		buf.setLength(0);
+//		for(Field f : fields){
+//			buf.append("#{").append(f.getName()).append("}").append(", ");
+//		}
+//		System.out.println(buf.toString());
+//	}
 }
