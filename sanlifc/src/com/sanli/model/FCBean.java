@@ -1,7 +1,6 @@
 package com.sanli.model;
 
 import java.lang.reflect.Field;
-import java.util.Date;
 
 
 /**
@@ -30,32 +29,32 @@ public class FCBean {
 	public float ht_power;
 	public float ht_civil;
 	public float ht_total;
-	public Date a_time;
+	public long a_time;
 	public String a_note;
-	public Date b_time;
+	public long b_time;
 	public String b_note;
-	public Date c_time;
+	public long c_time;
 	public String c_note;
-	public Date d_time;
+	public long d_time;
 	public String d_note;
-	public Date e_time;
+	public long e_time;
 	public String e_note;
-	public Date f_time;
+	public long f_time;
 	public String f_note;
 	public String check_info;
-	public Date final_cost_time;
+	public long final_cost_time;
 	public float final_wireless;
 	public float final_transmission;
 	public float final_power;
 	public float final_civil;
 	public float final_total;
-	public Date fapiao_a_time;
+	public long fapiao_a_time;
 	public float fapiao_a_scale;
 	public float fapiao_a_money;
-	public Date fapiao_b_time;
+	public long fapiao_b_time;
 	public float fapiao_b_scale;
 	public float fapiao_b_money;
-	public Date fapiao_c_time;
+	public long fapiao_c_time;
 	public float fapiao_c_scale;
 	public float fapiao_c_money;
 	public String remark;
@@ -66,8 +65,10 @@ public class FCBean {
 			Class<?> type = field.getType();
 			if(type == int.class){
 				field.setInt(this, Integer.parseInt(value));
-			}else if(type == Date.class){
-				field.set(this, new Date(Long.parseLong(value)));
+			}else if(type == long.class){
+				field.set(this, Long.parseLong(value));
+			}else if(type == float.class){
+				field.set(this, Float.parseFloat(value));
 			}else if(type == String.class){
 				field.set(this, value);
 			}

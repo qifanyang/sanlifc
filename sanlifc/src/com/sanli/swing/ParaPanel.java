@@ -670,7 +670,7 @@ public class ParaPanel extends JPanel{
 					FCBean fcBean = new FCBean();
 					try {
 						Field field = fcBean.getClass().getField(tfo.getName());
-						if(field.getType() == Date.class){
+						if(field.getType() == long.class){
 							DatePickerFactory.showDatePicker(tfo.getTextField(), 0, 0);
 						}
 					} catch (Exception e1) {
