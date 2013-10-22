@@ -3,20 +3,20 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sanli.data.FCMapper">
 	
-	<select id="select" parameterType="int" resultType="com.sanli.dao.Bean"> 
+	<select id="select" parameterType="int" resultType="com.sanli.model.Bean"> 
 		select * from tt where id = #{id} 
 	</select>
 	
-	<select id="selectByAll" parameterType="int" resultType="com.sanli.dao.Bean"> 
+	<select id="selectByAll" parameterType="int" resultType="com.sanli.model.Bean"> 
 		select * from tt where id = #{id} 
 	</select>
 		
-	<insert id="insert" parameterType="com.sanli.dao.Bean" useGeneratedKeys="true"> 
+	<insert id="insert" parameterType="com.sanli.model.Bean" useGeneratedKeys="true"> 
 		insert into tt (id,name) values (#{id},#{name}) 
 	</insert>
 		
 		
-	<update id="update" parameterType="com.sanli.dao.Bean"> 
+	<update id="update" parameterType="com.sanli.model.Bean"> 
 		update tt set name = #{name} where id = #{id} 
 	</update>
 		

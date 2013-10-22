@@ -42,7 +42,7 @@ public class DataServer {
 		try {
 			FCBean fcBean = new FCBean();
 			fcBean.city = "成都qqq";
-			int i = session.insert("com.sanli.dao.FLowChartMapper.insert", fcBean);
+			int i = session.insert("com.sanli.data.FLowChartMapper.insert", fcBean);
 			System.out.println("inset num = " + i);
 			session.commit();
 		} finally {
@@ -56,7 +56,7 @@ public class DataServer {
 			FCBean bean = new FCBean();
 //			bean.name = "updateTest";
 			bean.uuid = 2;
-			int i = session.update("com.sanli.dao.FLowChartMapper.delete", bean);
+			int i = session.update("com.sanli.data.FLowChartMapper.delete", bean);
 			System.out.println("delete num = " + i);
 			session.commit();
 		} finally {
@@ -70,7 +70,7 @@ public class DataServer {
 			FCBean fcBean = new FCBean();
 			fcBean.city = "成都更新";
 			fcBean.id = 0;
-			int i = session.update("com.sanli.dao.FLowChartMapper.update", fcBean);
+			int i = session.update("com.sanli.data.FLowChartMapper.update", fcBean);
 			System.out.println("update num = " + i);
 			session.commit();
 		} finally {
@@ -83,9 +83,9 @@ public class DataServer {
 		try {
 			
 			FCBean bean = new FCBean();
-			bean.id = 1;
+			bean.id = 0;
 			
-			FCBean fcBean = (FCBean) session.selectOne("com.sanli.dao.FLowChartMapper.select", bean);
+			FCBean fcBean = (FCBean) session.selectOne("com.sanli.data.FLowChartMapper.select", bean);
 
 			if(fcBean == null){
 				System.out.println("null .........");
@@ -100,7 +100,7 @@ public class DataServer {
 
 	public static void main(String[] args) {
 		DataServer dataServer = new DataServer();
-//		dataServer.select();
+		dataServer.select();
 //		dataServer.insert();
 //		dataServer.update();
 //		dataServer.delete();
