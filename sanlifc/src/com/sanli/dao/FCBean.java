@@ -1,6 +1,8 @@
 package com.sanli.dao;
 
+import java.lang.reflect.Field;
 import java.sql.Date;
+
 
 /**
  * 对应数据库表的实体类
@@ -21,23 +23,23 @@ public class FCBean {
 	public String a_project_manager;
 	public String project_leader;
 	public String contract_pay_info;
-	public String project_total_invest;
-	public String ht_wireless;
-	public String ht_transmisson;
-	public String ht_power;
-	public String ht_civil;
-	public String ht_total;
-	public String a_time;
+	public float project_total_invest;
+	public float ht_wireless;
+	public float ht_transmisson;
+	public float ht_power;
+	public float ht_civil;
+	public float ht_total;
+	public Date a_time;
 	public String a_note;
-	public String b_time;
+	public Date b_time;
 	public String b_note;
-	public String c_time;
+	public Date c_time;
 	public String c_note;
-	public String d_time;
+	public Date d_time;
 	public String d_note;
-	public String e_time;
+	public Date e_time;
 	public String e_note;
-	public String f_time;
+	public Date f_time;
 	public String f_note;
 	public String check_info;
 	public Date final_cost_time;
@@ -56,5 +58,24 @@ public class FCBean {
 	public float fapiao_c_scale;
 	public float fapiao_c_money;
 	public String remark;
+	
+	public void setValue(String name, String value){
+		try {
+			Field field = getClass().getField(name);
+			Class<?> type = field.getType();
+			if(type == int.class){
+				field.setInt(this, Integer.parseInt(value));
+			}else if(type == Date.class){
+				field.set(this, new Date(Long.parseLong(value)));
+			}else if(type == String.class){
+				field.set(this, value);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
+	public static void main(String[] args) {
+		System.out.println(new Date(System.currentTimeMillis()));
+	}
 }

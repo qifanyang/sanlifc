@@ -5,11 +5,11 @@ import javax.swing.JTextField;
 public class TextFieldObject {
 
 	private JTextField textField;
-	private ValueType type;
+	private String name;
 	
-	public TextFieldObject(JTextField textField, ValueType type){
+	public TextFieldObject(JTextField textField, String name){
 		this.textField = textField;
-		this.type = type;
+		this.name = name;
 	}
 	
 	public JTextField getVlaue() {
@@ -22,20 +22,14 @@ public class TextFieldObject {
 	
 	
 
-	public ValueType getType() {
-		return type;
+	public String getName() {
+		return name;
 	}
 
-	public void setType(ValueType type) {
-		this.type = type;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 
 
-	public enum ValueType{
-		INT,
-		FLOAT,
-		VARCHAR,
-		DATE
-	}
 }
