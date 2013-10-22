@@ -16,5 +16,6 @@
 	
 	<mappers>
 		<mapper resource="com/sanli/dao/FCMapper.xml"/>
+		<mapper resource="com/sanli/dao/fc.xml"/>
 	</mappers>
 </configuration>

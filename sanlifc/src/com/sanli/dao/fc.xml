@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanli.dao.FCMapper">
+	
+	<select id="select" parameterType="int" resultType="com.sanli.dao.Bean"> 
+		select * from tt where id = #{id} 
+	</select>
+	
+	<select id="selectByAll" parameterType="int" resultType="com.sanli.dao.Bean"> 
+		select * from tt where id = #{id} 
+	</select>
+		
+	<insert id="insert" parameterType="com.sanli.dao.Bean" useGeneratedKeys="true"> 
+		insert into tt (id,name) values (#{id},#{name}) 
+	</insert>
+		
+		
+	<update id="update" parameterType="com.sanli.dao.Bean"> 
+		update tt set name = #{name} where id = #{id} 
+	</update>
+		
+	<delete id="delete" parameterType="int"> 
+		delete from tt where id = #{id} 
+	</delete>
+	
+</mapper>
