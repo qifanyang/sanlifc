@@ -8,6 +8,7 @@ import java.sql.Date;
  * 对应数据库表的实体类
  */
 public class FCBean {
+	public int uuid;
 	public int id;
 	public String city;
 	public int year;
@@ -25,7 +26,7 @@ public class FCBean {
 	public String contract_pay_info;
 	public float project_total_invest;
 	public float ht_wireless;
-	public float ht_transmisson;
+	public float ht_transmission;
 	public float ht_power;
 	public float ht_civil;
 	public float ht_total;
@@ -77,5 +78,17 @@ public class FCBean {
 
 	public static void main(String[] args) {
 		System.out.println(new Date(System.currentTimeMillis()));
+		FCBean fcBean = new FCBean();
+		Field[] fields = fcBean.getClass().getFields();
+		StringBuffer buf = new StringBuffer();
+		for(Field f : fields){
+			buf.append(f.getName()).append(", ");
+		}
+		System.out.println(buf.toString());
+		buf.setLength(0);
+		for(Field f : fields){
+			buf.append("#{").append(f.getName()).append("}").append(", ");
+		}
+		System.out.println(buf.toString());
 	}
 }
