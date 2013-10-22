@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sanli.dao.FLowChartMapper">
+<mapper namespace="com.sanli.data.FLowChartMapper">
 	
-	<select id="select" parameterType="com.sanli.dao.FCBean" resultType="com.sanli.dao.FCBean"> 
+	<select id="select" parameterType="com.sanli.model.FCBean" resultType="com.sanli.model.FCBean"> 
 		select * from flowchart 
 		<where> 
 			<if test="id != null">
@@ -160,13 +160,13 @@
 	</select>
 	
 		
-	<insert id="insert" parameterType="com.sanli.dao.FCBean" useGeneratedKeys="true"> 
+	<insert id="insert" parameterType="com.sanli.model.FCBean" useGeneratedKeys="true"> 
 		insert into flowchart (id, city, year, create_project_title, create_project_number, project_name, mis_number, research_contract_number, simple_name, project_main_type, project_type, create_project_info, a_project_manager, project_leader, contract_pay_info, project_total_invest, ht_wireless, ht_transmission, ht_power, ht_civil, ht_total, a_time, a_note, b_time, b_note, c_time, c_note, d_time, d_note, e_time, e_note, f_time, f_note, check_info, final_cost_time, final_wireless, final_transmission, final_power, final_civil, final_total, fapiao_a_time, fapiao_a_scale, fapiao_a_money, fapiao_b_time, fapiao_b_scale, fapiao_b_money, fapiao_c_time, fapiao_c_scale, fapiao_c_money, remark) 
 		values (#{id}, #{city}, #{year}, #{create_project_title}, #{create_project_number}, #{project_name}, #{mis_number}, #{research_contract_number}, #{simple_name}, #{project_main_type}, #{project_type}, #{create_project_info}, #{a_project_manager}, #{project_leader}, #{contract_pay_info}, #{project_total_invest}, #{ht_wireless}, #{ht_transmission}, #{ht_power}, #{ht_civil}, #{ht_total}, #{a_time}, #{a_note}, #{b_time}, #{b_note}, #{c_time}, #{c_note}, #{d_time}, #{d_note}, #{e_time}, #{e_note}, #{f_time}, #{f_note}, #{check_info}, #{final_cost_time}, #{final_wireless}, #{final_transmission}, #{final_power}, #{final_civil}, #{final_total}, #{fapiao_a_time}, #{fapiao_a_scale}, #{fapiao_a_money}, #{fapiao_b_time}, #{fapiao_b_scale}, #{fapiao_b_money}, #{fapiao_c_time}, #{fapiao_c_scale}, #{fapiao_c_money}, #{remark}) 
 	</insert>
 		
 		
-	<update id="update" parameterType="com.sanli.dao.FCBean"> 
+	<update id="update" parameterType="com.sanli.model.FCBean"> 
 		update flowchart 
 		<set>
 			<if test="id != null">

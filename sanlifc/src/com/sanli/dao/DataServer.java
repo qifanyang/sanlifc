@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.sanli.model.FCBean;
+
 /**
  *执行数据库操作
  */
@@ -21,7 +23,7 @@ public class DataServer {
 	
 	
 	private DataServer(){
-		String resource = "com/sanli/dao/mybatis-config.xml";
+		String resource = "com/sanli/data/mybatis-config.xml";
 		InputStream inputStream = null;
 		try {
 			inputStream = Resources.getResourceAsStream(resource);
@@ -101,7 +103,7 @@ public class DataServer {
 //		dataServer.select();
 //		dataServer.insert();
 //		dataServer.update();
-		dataServer.delete();
+//		dataServer.delete();
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.sanli.dao;
+package com.sanli.model;
 
 public class Bean {
 

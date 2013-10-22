@@ -2,7 +2,7 @@ package com.sanli.logic;
 
 import java.util.List;
 
-import com.sanli.dao.FCBean;
+import com.sanli.model.FCBean;
 import com.sanli.swing.ParaPanel;
 
 /**

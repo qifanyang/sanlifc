@@ -15,7 +15,7 @@
 	</environments>
 	
 	<mappers>
-		<mapper resource="com/sanli/dao/FCMapper.xml"/>
-		<mapper resource="com/sanli/dao/FLowChartMapper.xml"/>
+		<mapper resource="com/sanli/data/FCMapper.xml"/>
+		<mapper resource="com/sanli/data/FLowChartMapper.xml"/>
 	</mappers>
 </configuration>
