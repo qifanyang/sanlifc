@@ -90,7 +90,7 @@ public class ToolUI extends JFrame {
 			pPanel.setPreferredSize(new Dimension(getPreferredSize().width, 400));
 			TitledBorder paraBorder = new TitledBorder("²ÎÊý");
 			pPanel.setBorder(paraBorder);
-			ParaPanel paraPanel = new ParaPanel();
+			ParaPanel paraPanel = ParaPanel.getInstance();
 			pPanel.add(paraPanel);
 			
 			

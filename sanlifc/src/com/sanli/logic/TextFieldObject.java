@@ -12,12 +12,13 @@ public class TextFieldObject {
 		this.name = name;
 	}
 	
-	public JTextField getVlaue() {
-		return textField;
+	public String getVlaue() {
+		return textField.getText().trim();
 	}
+	
 
-	public void setVlaue(JTextField textField) {
-		this.textField = textField;
+	public void setVlaue(String value) {
+		this.textField.setText(value);
 	}
 	
 	

@@ -26,9 +26,14 @@ public class ParaPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
+	private static ParaPanel instance = new ParaPanel();
+	
 	private List<TextFieldObject> vlist = new ArrayList<TextFieldObject>();
 	
-	public ParaPanel(){
+	
+
+	
+	private ParaPanel(){
 		
 		GridBagConstraints tc = new GridBagConstraints();
 		tc.fill = GridBagConstraints.BOTH;
@@ -599,7 +604,7 @@ public class ParaPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				for(TextFieldObject tfo : vlist){
-					System.out.println(tfo.getVlaue().getText());
+					System.out.println(tfo.getVlaue());
 //					System.out.println("aa");
 				}
 			}
@@ -610,7 +615,7 @@ public class ParaPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				for(TextFieldObject tfo : vlist){
-					tfo.getVlaue().setText("");
+					tfo.setVlaue("");
 				}
 				
 			}
@@ -618,6 +623,13 @@ public class ParaPanel extends JPanel{
 		
 	}
 	
+	public static ParaPanel getInstance(){
+		return instance;
+	}
+	
+	public List<TextFieldObject> getVList(){
+		return vlist;
+	}
 	public static void main(String[] args) {
 		ParaPanel paraPanel = new ParaPanel();
 		System.out.println(paraPanel.vlist.size());
