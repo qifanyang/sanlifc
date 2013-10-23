@@ -12,8 +12,13 @@ public class TextFieldObject {
 		this.name = name;
 	}
 	
+	/**
+	 * 当值长度为0时,返回null,因为iBatis中查询构建动态SQL使用了null值来构造查询
+	 * @return
+	 */
 	public String getVlaue() {
-		return textField.getText().trim();
+		String ss = textField.getText().trim();
+		return ss.length() == 0 ? null : ss;
 	}
 	
 

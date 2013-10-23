@@ -92,19 +92,22 @@ public class ToolUI extends JFrame {
 		private static final long serialVersionUID = 1L;
 		
 		public DataSelectPanel(){
-			JPanel pPanel = new JPanel();
-			pPanel.setPreferredSize(new Dimension(getPreferredSize().width, 400));
+			JPanel pPanel = new JPanel();//参数输入面板
+			pPanel.setPreferredSize(new Dimension(getPreferredSize().width, 380));
 			TitledBorder paraBorder = new TitledBorder("参数");
 			pPanel.setBorder(paraBorder);
 			ParaPanel paraPanel = ParaPanel.getInstance();
 			pPanel.add(paraPanel);
 			
 			
-			JPanel sPanel = new JPanel();
+			JPanel sPanel = new JPanel();//查询结果面面板
 			TitledBorder showBorder = new TitledBorder("查询结果");
 			sPanel.setBorder(showBorder);
+			sPanel.setLayout(new BorderLayout());
 			ShowPanel showPanel = ShowPanel.getInstance();
-			sPanel.add(showPanel);
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setViewportView(showPanel);
+			sPanel.add(scrollPane, BorderLayout.CENTER);
 			
 			setLayout(new BorderLayout());
 			

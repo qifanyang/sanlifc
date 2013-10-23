@@ -66,11 +66,11 @@ public class FCBean {
 			Field field = getClass().getField(name);
 			Class<?> type = field.getType();
 			if(type == int.class){
-				field.setInt(this, Integer.parseInt(value));
+				field.setInt(this, value == null || value.length() ==0 ? 0 : Integer.parseInt(value));
 			}else if(type == long.class){
 				field.set(this, Utils.dateToMillisecond(value));
 			}else if(type == float.class){
-				field.set(this, Float.parseFloat(value));
+				field.set(this, value == null || value.length() ==0 ? 0 : Float.parseFloat(value));
 			}else if(type == String.class){
 				field.set(this, value);
 			}

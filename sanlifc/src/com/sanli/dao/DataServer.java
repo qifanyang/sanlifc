@@ -42,7 +42,8 @@ public class DataServer {
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
 			FCBean fcBean = new FCBean();
-			fcBean.city = "成都qqq";
+			fcBean.city = "成都222";
+			fcBean.id = 1;
 			int i = session.insert("com.sanli.data.FLowChartMapper.insert", fcBean);
 			System.out.println("inset num = " + i);
 			session.commit();
@@ -83,16 +84,16 @@ public class DataServer {
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
 			
-//			FCBean bean = new FCBean();
+//			bean = new FCBean();
 //			bean.id = 0;
 			List<FCBean> list = session.selectList("com.sanli.data.FLowChartMapper.select", bean);
+//			FCBean list = (FCBean)session.selectOne("com.sanli.data.FLowChartMapper.select", bean);
+			if(list == null || list.size() == 0){
+				System.out.println("selcect null .........");
+				return null;
+			}
+			System.out.println(list.get(0).id + " : " + list.get(0).city);
 			return list;
-//			if(fcBean == null){
-//				System.out.println("null .........");
-//				return;
-//			}
-//			System.out.println(fcBean.id + " : " + fcBean.city);
-
 		} finally {
 			session.close();
 		}
@@ -100,8 +101,8 @@ public class DataServer {
 
 	public static void main(String[] args) {
 		DataServer dataServer = new DataServer();
-//		dataServer.insert();
-//		dataServer.select();
+		dataServer.insert();
+//		dataServer.select(new FCBean());
 //		dataServer.update();
 //		dataServer.delete();
 	}
