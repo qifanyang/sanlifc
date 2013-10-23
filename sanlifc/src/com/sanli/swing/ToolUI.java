@@ -2,6 +2,8 @@ package com.sanli.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
@@ -59,7 +61,7 @@ public class ToolUI extends JFrame {
 		// JToolBar toolBar = new CustomToolBar(editorPanel);
 
 		JTabbedPane tab = new JTabbedPane();
-		tab.add("查询数据",new JScrollPane(new DataSelectPanel()));
+		tab.add("查询数据",new DataSelectPanel());
 		tab.add("添加数据",new DataAddPanel());
 		
 		getContentPane().add(tab, BorderLayout.CENTER);
@@ -94,7 +96,7 @@ public class ToolUI extends JFrame {
 		
 		public DataSelectPanel(){
 			JPanel pPanel = new JPanel();//参数输入面板
-			pPanel.setPreferredSize(new Dimension(getPreferredSize().width, 380));
+			pPanel.setPreferredSize(new Dimension(500, 380));
 			TitledBorder paraBorder = new TitledBorder("参数");
 			pPanel.setBorder(paraBorder);
 			ParaPanel paraPanel = ParaPanel.getInstance();
@@ -111,10 +113,23 @@ public class ToolUI extends JFrame {
 			sPanel.add(scrollPane, BorderLayout.CENTER);
 			
 			setLayout(new BorderLayout());
+//			GridBagConstraints tc = new GridBagConstraints();
+//			tc.fill = GridBagConstraints.BOTH;
+//			// c.fill = GridBagConstraints.REMAINDER;
+//			tc.weightx = 1.0;
+//			tc.weighty = 1.0;
+//			tc.gridy = 0;
+//			tc.gridx = 0;
+//			setLayout(new GridBagLayout());
 			
+//			JPanel up = new JPanel();
+//			up.setPreferredSize(new Dimension(400, 150));
+//			up.add(paraPanel);
 			add(pPanel, BorderLayout.NORTH);
-			
 			add(sPanel, BorderLayout.CENTER);
+//			add(up, tc);
+//			tc.gridy = 1;
+//			add(sPanel, tc);
 //			dataSelectPanel = this;
 			
 			//TODO 最小化后最大化ParaPanel和显示部分公共ScrollPanel了,不该公用
