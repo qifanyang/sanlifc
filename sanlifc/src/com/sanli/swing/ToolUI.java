@@ -62,14 +62,15 @@ public class ToolUI extends JFrame {
 		tab.add("查询数据",new JScrollPane(new DataSelectPanel()));
 		tab.add("添加数据",new DataAddPanel());
 		
-		 add(tab, BorderLayout.CENTER);
+		getContentPane().add(tab, BorderLayout.CENTER);
 		// add(editorPanel, BorderLayout.CENTER);
 //		setSize(new Dimension(WIDTH, HEIGHT));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setLocationRelativeTo(null);
-		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
 		instancEditor = this;
+		setResizable(false);
 
 	}
 
@@ -112,8 +113,11 @@ public class ToolUI extends JFrame {
 			setLayout(new BorderLayout());
 			
 			add(pPanel, BorderLayout.NORTH);
+			
 			add(sPanel, BorderLayout.CENTER);
-			dataSelectPanel = this;
+//			dataSelectPanel = this;
+			
+			//TODO 最小化后最大化ParaPanel和显示部分公共ScrollPanel了,不该公用
 			
 		}
 		

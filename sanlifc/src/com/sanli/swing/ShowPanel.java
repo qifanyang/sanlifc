@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import org.apache.commons.logging.Log;
@@ -74,11 +75,13 @@ public class ShowPanel extends JPanel{
 		
 		JTable table = new JTable(rr, header);
 //		JScrollPane scrollPane = new JScrollPane(table);
-		this.removeAll();
-//		table.getTableHeader().setVisible(true);
-		this.add(table.getTableHeader(), BorderLayout.PAGE_START);
-		this.add(table, BorderLayout.CENTER);
-		this.updateUI();
+		instance.removeAll();
+		instance.updateUI();
+		table.getTableHeader().setVisible(true);
+		instance.add(table.getTableHeader(), BorderLayout.PAGE_START);
+		instance.add(table, BorderLayout.CENTER);
+//		instance.add(scrollPane);
+		instance.updateUI();
 	}
 
 }

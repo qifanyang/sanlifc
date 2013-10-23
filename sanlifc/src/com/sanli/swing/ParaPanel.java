@@ -627,8 +627,14 @@ public class ParaPanel extends JPanel{
 		
 		
 		addDatePickerEvent();
-		
+//		this.updateUI();
 	}
+	
+//	@Override
+//	protected void paintComponent(Graphics g) {
+//		super.paintComponent(g);
+//		log.debug("paintComponent ..............");
+//	}
 	
 	public static ParaPanel getInstance(){
 		return instance;

@@ -1,5 +1,6 @@
 package com.sanli.logic;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -19,12 +20,19 @@ public class Utils {
 		if(strings.length != 3){
 			throw new RuntimeException("日期转换失败 , date = " + date);
 		}
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//		try {
+//			return dateFormat.parse(date).getTime();
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+//		return 0;
+		
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.YEAR, Integer.parseInt(strings[0]));
 		//月份使用[0-11]表示十二个月
 		calendar.set(Calendar.MONTH, Integer.parseInt(strings[1]) - 1);
 		calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(strings[2]));
-		
 		return calendar.getTimeInMillis();
 	}
 	
