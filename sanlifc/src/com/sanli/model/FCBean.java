@@ -2,6 +2,8 @@ package com.sanli.model;
 
 import java.lang.reflect.Field;
 
+import com.sanli.logic.Utils;
+
 
 /**
  * 对应数据库表的实体类
@@ -66,7 +68,7 @@ public class FCBean {
 			if(type == int.class){
 				field.setInt(this, Integer.parseInt(value));
 			}else if(type == long.class){
-				field.set(this, Long.parseLong(value));
+				field.set(this, Utils.dateToMillisecond(value));
 			}else if(type == float.class){
 				field.set(this, Float.parseFloat(value));
 			}else if(type == String.class){

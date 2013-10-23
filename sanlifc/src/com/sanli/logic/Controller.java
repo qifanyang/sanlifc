@@ -2,6 +2,7 @@ package com.sanli.logic;
 
 import java.util.List;
 
+import com.sanli.dao.DataServer;
 import com.sanli.model.FCBean;
 import com.sanli.swing.ParaPanel;
 
@@ -29,6 +30,11 @@ public class Controller {
 		return fcBean;
 	}
 	
-	
+	public List<FCBean> select(){
+		FCBean bean = getFCBean();
+		//TODO maybe do some check.....
+		List<FCBean> list = DataServer.getInstance().select(bean);
+		return list;
+	}
 
 }

@@ -1,6 +1,11 @@
 package com.sanli.swing;
 
+import java.util.List;
+
 import javax.swing.JPanel;
+
+import com.sanli.logic.Controller;
+import com.sanli.model.FCBean;
 
 /**
  * 显示面板，用于显示查询结果
@@ -10,8 +15,19 @@ import javax.swing.JPanel;
  */
 public class ShowPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
+	private static ShowPanel instance = new ShowPanel();
 	
-	public ShowPanel(){
+	private ShowPanel(){}
+	
+	public static ShowPanel getInstance(){
+		return instance;
+	}
+	
+	/**
+	 * 采用JTable显示
+	 */
+	public void showSelectResult(){
+		List<FCBean> list = Controller.getInstance().select();
 		
 	}
 

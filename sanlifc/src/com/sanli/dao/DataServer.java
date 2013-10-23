@@ -2,6 +2,7 @@ package com.sanli.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -78,20 +79,19 @@ public class DataServer {
 		}
 	}
 
-	public void select(){
+	public List<FCBean> select(FCBean bean){
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
 			
-			FCBean bean = new FCBean();
-			bean.id = 0;
-			
-			FCBean fcBean = (FCBean) session.selectOne("com.sanli.data.FLowChartMapper.select", bean);
-
-			if(fcBean == null){
-				System.out.println("null .........");
-				return;
-			}
-			System.out.println(fcBean.id + " : " + fcBean.city);
+//			FCBean bean = new FCBean();
+//			bean.id = 0;
+			List<FCBean> list = session.selectList("com.sanli.data.FLowChartMapper.select", bean);
+			return list;
+//			if(fcBean == null){
+//				System.out.println("null .........");
+//				return;
+//			}
+//			System.out.println(fcBean.id + " : " + fcBean.city);
 
 		} finally {
 			session.close();
@@ -100,7 +100,7 @@ public class DataServer {
 
 	public static void main(String[] args) {
 		DataServer dataServer = new DataServer();
-		dataServer.insert();
+//		dataServer.insert();
 //		dataServer.select();
 //		dataServer.update();
 //		dataServer.delete();

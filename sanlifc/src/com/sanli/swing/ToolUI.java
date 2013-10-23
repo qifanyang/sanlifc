@@ -3,6 +3,7 @@ package com.sanli.swing;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,6 +13,9 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.TitledBorder;
 
+import com.sanli.logic.Controller;
+import com.sanli.model.FCBean;
+
 
 /**
  * 帮助系统编辑器
@@ -20,13 +24,15 @@ import javax.swing.border.TitledBorder;
  * 
  */
 public class ToolUI extends JFrame {
+	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 1100;
 	public static final int HEIGHT = 800;
 
 	public static BufferedImage icon;
 	public static ToolUI instancEditor;
+	public static JPanel dataSelectPanel;
+	public static JPanel dataAddPanel;
 
-	private static final long serialVersionUID = 1L;
 
 	public ToolUI() {
 
@@ -97,13 +103,14 @@ public class ToolUI extends JFrame {
 			JPanel sPanel = new JPanel();
 			TitledBorder showBorder = new TitledBorder("查询结果");
 			sPanel.setBorder(showBorder);
-			ShowPanel showPanel = new ShowPanel();
+			ShowPanel showPanel = ShowPanel.getInstance();
 			sPanel.add(showPanel);
 			
 			setLayout(new BorderLayout());
 			
 			add(pPanel, BorderLayout.NORTH);
 			add(sPanel, BorderLayout.CENTER);
+			dataSelectPanel = this;
 			
 		}
 		
@@ -112,6 +119,12 @@ public class ToolUI extends JFrame {
 	public class DataAddPanel extends JPanel{
 		
 		private static final long serialVersionUID = 1L;
+		
+		public DataAddPanel(){
+			
+			
+			dataAddPanel = this;
+		}
 		
 	}
 }

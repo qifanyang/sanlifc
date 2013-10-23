@@ -1,10 +1,8 @@
 package com.sanli.logic;
 
-import java.io.File;
 
 /**
  * @author XF
- * 2013-10-12 下午10:19:13
  */
 public class FileConfig {
 

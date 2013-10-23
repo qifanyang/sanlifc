@@ -613,10 +613,8 @@ public class ParaPanel extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for(TextFieldObject tfo : vlist){
-					System.out.println(tfo.getVlaue());
-//					System.out.println("aa");
-				}
+				//执行查询,在主界面查询结果中显示查询结果
+				ShowPanel.getInstance().showSelectResult();
 			}
 		});
 		
@@ -646,23 +644,6 @@ public class ParaPanel extends JPanel{
 	
 	private void addDatePickerEvent(){
 		for(final TextFieldObject tfo : this.vlist){
-//			tfo.getTextField().addFocusListener(new FocusAdapter() {
-//				@Override
-//				public void focusGained(FocusEvent e) {
-//					super.focusGained(e);
-//					FCBean fcBean = new FCBean();
-//					try {
-//						Field field = fcBean.getClass().getField(tfo.getName());
-//						if(field.getType() == Date.class){
-//							DatePickerFactory.showDatePicker(tfo.getTextField(), 0, 0);
-//						}
-//					} catch (Exception e1) {
-//						e1.printStackTrace();
-//					} 
-//					
-//				}
-//			});
-			
 			tfo.getTextField().addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
