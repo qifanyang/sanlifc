@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.sanli.logic.Controller;
 import com.sanli.model.FCBean;
@@ -19,6 +21,7 @@ import com.sanli.model.FCBean;
  * 2013-10-21 ÏÂÎç10:19:47
  */
 public class ShowPanel extends JPanel{
+	private final static Log log = LogFactory.getLog(ShowPanel.class);
 	private static final long serialVersionUID = 1L;
 	private static ShowPanel instance = new ShowPanel();
 	
@@ -36,12 +39,13 @@ public class ShowPanel extends JPanel{
 	 * @throws Exception 
 	 */
 	public void showSelectResult() {
+		log.debug("show result in JTable....");
 		List<FCBean> list = Controller.getInstance().select();
-		Vector<String> r = new Vector<String>();
 		Vector<Vector<String>> rr = new Vector<Vector<String>>();
 		try{
 			for(FCBean bean : list){
 				Field[] fields = bean.getClass().getFields();
+				Vector<String> r = new Vector<String>();
 				for(Field f : fields){
 					if(!f.getName().equalsIgnoreCase("uuid")){
 						Class<?> type = f.getType();
@@ -52,7 +56,7 @@ public class ShowPanel extends JPanel{
 						}else if(type == float.class){
 							r.add(String.valueOf(f.getFloat(bean)));
 						}else if(type == String.class){
-							r.add(String.valueOf(f.get(bean)));
+							r.add(String.valueOf(f.get(bean) == null ? "" : f.get(bean)));
 						}
 					}
 				}

@@ -3,158 +3,158 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sanli.data.FLowChartMapper">
 	
-	<select id="select" parameterType="com.sanli.model.FCBean" resultType="com.sanli.model.FCBean"> 
+	<select id="select" parameterType="com.sanli.model.FCBean" resultType="com.sanli.model.FCBean" statementType="STATEMENT"> 
 		select * from flowchart 
 		<where> 
-			<if test="id != null">
-			    id  like #{id}
+			<if test="id != null and id != 0">
+			    id  like '%${id}%'
 		    </if> 
 			<if test="city != null">
-				AND city like #{city}
+				AND city like '%${city}%'
 			</if>
 			<if test="year != null">
-				AND year like #{year}
+				AND year like '%${year}%'
 			</if>
 			<if test="create_project_title != null">
-				AND create_project_title like #{create_project_title}
+				AND create_project_title like '%${create_project_title}%'
 			</if>
 			<if test="create_project_number != null">
-				AND create_project_number like #{create_project_number}
+				AND create_project_number like '%${create_project_number}%'
 			</if>
 			<if test="project_name != null">
-				AND project_name like #{project_name}
+				AND project_name like '%${project_name}%'
 			</if>
 			<if test="mis_number != null">
-				AND mis_number like #{mis_number}
+				AND mis_number like '%${mis_number}%'
 			</if>
 			<if test="research_contract_number != null">
-				AND research_contract_number like #{research_contract_number}
+				AND research_contract_number like '%${research_contract_number}%'
 			</if>
 			<if test="simple_name != null">
-				AND simple_name like #{simple_name}
+				AND simple_name like '%${simple_name}%'
 			</if>
 			<if test="project_main_type != null">
-				AND project_main_type like #{project_main_type}
+				AND project_main_type like '%${project_main_type}%'
 			</if>
 			<if test="project_type != null">
-				AND project_type like #{project_type}
+				AND project_type like '%${project_type}%'
 			</if>
 			<if test="create_project_info != null">
-				AND create_project_info like #{create_project_info}
+				AND create_project_info like '%${create_project_info}%'
 			</if>
 			<if test="a_project_manager != null">
-				AND a_project_manager like #{a_project_manager}
+				AND a_project_manager like '%${a_project_manager}%'
 			</if>
 			<if test="project_leader != null">
-				AND project_leader like #{project_leader}
+				AND project_leader like '%${project_leader}%'
 			</if>
 			<if test="contract_pay_info != null">
-				AND contract_pay_info like #{contract_pay_info}
+				AND contract_pay_info like '%${contract_pay_info}%'
 			</if>
-			<if test="project_total_invest != null">
-				AND project_total_invest like #{project_total_invest}
+			<if test="project_total_invest != null and project_total_invest != 0">
+				AND project_total_invest like '%${project_total_invest}%'
 			</if>
-			<if test="ht_wireless != null">
-				AND ht_wireless like #{ht_wireless}
+			<if test="ht_wireless != null and ht_wireless != 0">
+				AND ht_wireless like '%${ht_wireless}%'
 			</if>
-			<if test="ht_transmission != null">
-				AND ht_transmission like #{ht_transmission}
+			<if test="ht_transmission != null and ht_transmission != 0">
+				AND ht_transmission like '%${ht_transmission}%'
 			</if>
-			<if test="ht_power != null">
-				AND ht_power like #{ht_power}
+			<if test="ht_power != null and ht_power != 0">
+				AND ht_power like '%${ht_power}%'
 			</if>
-			<if test="ht_civil != null">
-				AND ht_civil like #{ht_civil}
+			<if test="ht_civil != null and ht_civil != 0">
+				AND ht_civil like '%${ht_civil}%'
 			</if>
-			<if test="ht_total != null">
-				AND ht_total like #{ht_total}
+			<if test="ht_total != null and ht_total != 0">
+				AND ht_total like '%${ht_total}%'
 			</if>
-			<if test="a_time != null">
-				AND a_time like #{a_time}
+			<if test="a_time != null and a_time != 0">
+				AND a_time like '%${a_time}%'
 			</if>
 			<if test="a_note != null">
-				AND a_note like #{a_note}
+				AND a_note like '%${a_note}%'
 			</if>
-			<if test="b_time != null">
-				AND b_time like #{b_time}
+			<if test="b_time != null and b_time != 0">
+				AND b_time like '%${b_time}%'
 			</if>
 			<if test="b_note != null">
-				AND b_note like #{b_note}
+				AND b_note like '%${b_note}%'
 			</if>
-			<if test="c_time != null">
-				AND c_time like #{c_time}
+			<if test="c_time != null and c_time != 0">
+				AND c_time like '%${c_time}%'
 			</if>
 			<if test="c_note != null">
-				AND c_note like #{c_note}
+				AND c_note like '%${c_note}%'
 			</if>
-			<if test="d_time != null">
-				AND d_time like #{d_time}
+			<if test="d_time != null and d_time != 0">
+				AND d_time like '%${d_time}%'
 			</if>
 			<if test="d_note != null">
-				AND d_note like #{d_note}
+				AND d_note like '%${d_note}%'
 			</if>
-			<if test="e_time != null">
-				AND e_time like #{e_time}
+			<if test="e_time != null and e_time != 0">
+				AND e_time like '%${e_time}%'
 			</if>
 			<if test="e_note != null">
-				AND e_note like #{e_note}
+				AND e_note like '%${e_note}%'
 			</if>
-			<if test="f_time != null">
-				AND f_time like #{f_time}
+			<if test="f_time != null and f_time != 0">
+				AND f_time like '%${f_time}%'
 			</if>
 			<if test="f_note != null">
-				AND f_note like #{f_note}
+				AND f_note like '%${f_note}%'
 			</if>
 			<if test="check_info != null">
-				AND check_info like #{check_info}
+				AND check_info like '%${check_info}%'
 			</if>
-			<if test="final_cost_time != null">
-				AND final_cost_time like #{final_cost_time}
+			<if test="final_cost_time != null and final_cost_time != 0">
+				AND final_cost_time like '%${final_cost_time}%'
 			</if>
-			<if test="final_wireless != null">
-				AND final_wireless like #{final_wireless}
+			<if test="final_wireless != null and final_wireless != 0">
+				AND final_wireless like '%${final_wireless}%'
 			</if>
-			<if test="final_transmission != null">
-				AND final_transmission like #{final_transmission}
+			<if test="final_transmission != null and final_transmission != 0">
+				AND final_transmission like '%${final_transmission}%'
 			</if>
-			<if test="final_power != null">
-				AND final_power like #{final_power}
+			<if test="final_power != null and final_power != 0">
+				AND final_power like '%${final_power}%'
 			</if>
-			<if test="final_civil != null">
-				AND final_civil like #{final_civil}
+			<if test="final_civil != null and final_civil != 0">
+				AND final_civil like '%${final_civil}%'
 			</if>
-			<if test="final_total != null">
-				AND final_total like #{final_total}
+			<if test="final_total != null and final_total != 0">
+				AND final_total like '%${final_total}%'
 			</if>
-			<if test="fapiao_a_time != null">
-				AND fapiao_a_time like #{fapiao_a_time}
+			<if test="fapiao_a_time != null and fapiao_a_time != 0">
+				AND fapiao_a_time like '%${fapiao_a_time}%'
 			</if>
-			<if test="fapiao_a_scale != null">
-				AND fapiao_a_scale like #{fapiao_a_scale}
+			<if test="fapiao_a_scale != null and fapiao_a_scale != 0">
+				AND fapiao_a_scale like '%${fapiao_a_scale}%'
 			</if>
-			<if test="fapiao_a_money != null">
-				AND fapiao_a_money like #{fapiao_a_money}
+			<if test="fapiao_a_money != null and fapiao_a_money != 0">
+				AND fapiao_a_money like '%${fapiao_a_money}%'
 			</if>
-			<if test="fapiao_b_time != null">
-				AND fapiao_b_time like #{fapiao_b_time}
+			<if test="fapiao_b_time != null and fapiao_b_time != 0">
+				AND fapiao_b_time like '%${fapiao_b_time}%'
 			</if>
-			<if test="fapiao_b_scale != null">
-				AND fapiao_b_scale like #{fapiao_b_scale}
+			<if test="fapiao_b_scale != null and fapiao_b_scale != 0">
+				AND fapiao_b_scale like '%${fapiao_b_scale}%'
 			</if>
-			<if test="fapiao_b_money != null">
-				AND fapiao_b_money like #{fapiao_b_money}
+			<if test="fapiao_b_money != null and fapiao_b_money != 0">
+				AND fapiao_b_money like '%${fapiao_b_money}%'
 			</if>
-			<if test="fapiao_c_time != null">
-				AND fapiao_c_time like #{fapiao_c_time}
+			<if test="fapiao_c_time != null and fapiao_c_time != 0">
+				AND fapiao_c_time like '%${fapiao_c_time}%'
 			</if>
-			<if test="fapiao_c_scale != null">
-				AND fapiao_c_scale like #{fapiao_c_scale}
+			<if test="fapiao_c_scale != null and fapiao_c_scale != 0">
+				AND fapiao_c_scale like '%${fapiao_c_scale}%'
 			</if>
-			<if test="fapiao_c_money != null">
-				AND fapiao_c_money like #{fapiao_c_money}
+			<if test="fapiao_c_money != null and fapiao_c_money != 0">
+				AND fapiao_c_money like '%${fapiao_c_money}%'
 			</if>
 			<if test="remark != null">
-				AND remark like #{remark}
+				AND remark like '%${remark}%'
 			</if>
 	  </where> 
 	</select>

@@ -17,6 +17,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 import com.sanli.logic.TextFieldObject;
 import com.sanli.model.FCBean;
@@ -28,6 +31,7 @@ import com.sanli.model.FCBean;
  * 2013-10-21 下午10:17:47
  */
 public class ParaPanel extends JPanel{
+	private final static Log log = LogFactory.getLog(ParaPanel.class);
 
 	private static final long serialVersionUID = 1L;
 	
@@ -605,6 +609,7 @@ public class ParaPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//执行查询,在主界面查询结果中显示查询结果
+				log.debug("action select......");
 				ShowPanel.getInstance().showSelectResult();
 			}
 		});
