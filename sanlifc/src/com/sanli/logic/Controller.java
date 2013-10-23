@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sanli.dao.DataServer;
 import com.sanli.model.FCBean;
+import com.sanli.swing.AddPanel;
 import com.sanli.swing.ParaPanel;
 
 /**
@@ -21,7 +22,7 @@ public class Controller {
 	}
 	
 	
-	public FCBean getFCBean(){
+	public FCBean getSelectFCBean(){
 		List<TextFieldObject> vList = ParaPanel.getInstance().getVList();
 		FCBean fcBean = new FCBean();
 		for(TextFieldObject tfo : vList){
@@ -30,11 +31,25 @@ public class Controller {
 		return fcBean;
 	}
 	
+	public FCBean getInsertFCBean(){
+		List<TextFieldObject> vList = AddPanel.getInstance().getVList();
+		FCBean fcBean = new FCBean();
+		for(TextFieldObject tfo : vList){
+			fcBean.setValue(tfo.getName(), tfo.getVlaue());
+		}
+		return fcBean;
+	}
+	
 	public List<FCBean> select(){
-		FCBean bean = getFCBean();
+		FCBean bean = getSelectFCBean();
 		//TODO maybe do some check.....
 		List<FCBean> list = DataServer.getInstance().select(bean);
 		return list;
+	}
+	
+	public void insert(){
+		FCBean bean = getInsertFCBean();
+		DataServer.getInstance().insert(bean);
 	}
 
 }

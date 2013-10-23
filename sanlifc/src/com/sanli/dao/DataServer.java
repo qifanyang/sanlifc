@@ -38,13 +38,13 @@ public class DataServer {
 		return instance;
 	}
 	
-	public void insert(){
+	public void insert(FCBean bean){
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			FCBean fcBean = new FCBean();
-			fcBean.city = "÷ÿ«Ï22";
-			fcBean.id = 1;
-			int i = session.insert("com.sanli.data.FLowChartMapper.insert", fcBean);
+//			bean = new FCBean();
+//			bean.city = "÷ÿ«Ï22";
+			bean.id = 4;
+			int i = session.insert("com.sanli.data.FLowChartMapper.insert", bean);
 			System.out.println("inset num = " + i);
 			session.commit();
 		} finally {

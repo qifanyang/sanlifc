@@ -20,6 +20,7 @@ import javax.swing.border.TitledBorder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.sanli.logic.Controller;
 import com.sanli.logic.TextFieldObject;
 import com.sanli.model.FCBean;
 
@@ -608,7 +609,7 @@ public class AddPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				//执行查询,在主界面查询结果中显示查询结果
 				log.debug("action add......");
-//				ShowPanel.getInstance().showSelectResult();
+				Controller.getInstance().insert();
 			}
 		});
 		
