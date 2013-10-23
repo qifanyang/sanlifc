@@ -68,7 +68,7 @@ public class ToolUI extends JFrame {
 		// add(editorPanel, BorderLayout.CENTER);
 //		setSize(new Dimension(WIDTH, HEIGHT));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setLocationRelativeTo(null);
+//		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 		instancEditor = this;
@@ -143,8 +143,15 @@ public class ToolUI extends JFrame {
 		private static final long serialVersionUID = 1L;
 		
 		public DataAddPanel(){
+			JPanel pPanel = new JPanel();//参数输入面板
+			pPanel.setPreferredSize(new Dimension(500, 380));
+			TitledBorder paraBorder = new TitledBorder("数据录入");
+			pPanel.setBorder(paraBorder);
+			AddPanel addPanel = AddPanel.getInstance();
+			pPanel.add(addPanel);
 			
-			
+			setLayout(new BorderLayout());
+			add(pPanel, BorderLayout.NORTH);
 			dataAddPanel = this;
 		}
 		
