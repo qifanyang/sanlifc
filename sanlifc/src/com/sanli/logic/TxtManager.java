@@ -1,5 +1,8 @@
 package com.sanli.logic;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +23,7 @@ public class TxtManager {
 		return instance;
 	}
 	
-	public  void export(String path, List<FCBean> list) throws Exception{
+	public  boolean export(String path, List<FCBean> list) throws Exception{
 		StringBuilder builder = new StringBuilder();
 		for(FCBean bean : list){
 			Field[] fields = bean.getClass().getFields();
@@ -30,18 +33,28 @@ public class TxtManager {
 					if(type == int.class){
 						builder.append(f.getInt(bean)).append("\t");
 					}else if(type == long.class){
-						builder.append(f.getLong(bean)).append("\t");
+						builder.append(Utils.millisecondToDate(f.getLong(bean))).append("\t");
 					}else if(type == float.class){
 						builder.append(f.getFloat(bean)).append("\t");
 					}else if(type == String.class){
-						builder.append(f.get(bean)).append("\t");
+						Object obj = f.get(bean);
+						if(obj == null){
+							builder.append("\t");
+						}else{
+							builder.append(f.get(bean)).append("\t");
+						}
 					}
 				}
 			}
 			builder.append("\n");
 		}
-		
+		//
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path)));
+		writer.write(builder.toString());
+		writer.flush();
+		writer.close();
 		System.out.println(builder.toString());
+		return true;
 	}
 	
 	
@@ -50,10 +63,19 @@ public class TxtManager {
 		fcBean.id = 1;
 		fcBean.city = "nihao";
 		fcBean.year = 2013;
-		fcBean.check_info = "wowowowowoowwoo";
+		fcBean.check_info = "验收情况";
+		fcBean.remark = "备注一";
+		FCBean fcBean1 = new FCBean();
+		fcBean1.id = 1;
+		fcBean1.city = "成都";
+		fcBean1.year = 2013;
+		fcBean1.check_info = "验收情况222";
+		fcBean1.remark = "备注一";
+		
 		
 		ArrayList<FCBean> list = new ArrayList<FCBean>();
 		list.add(fcBean);
+		list.add(fcBean1);
 		
 		getInstance().export(null, list);
 	}

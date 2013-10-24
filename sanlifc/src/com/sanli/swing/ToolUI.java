@@ -1,22 +1,31 @@
 package com.sanli.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.TitledBorder;
 
-import com.sanli.logic.Controller;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.sanli.logic.AppController;
+import com.sanli.logic.Utils;
 import com.sanli.model.FCBean;
+
 
 
 /**
@@ -26,6 +35,7 @@ import com.sanli.model.FCBean;
  * 
  */
 public class ToolUI extends JFrame {
+	private final static Log log = LogFactory.getLog(ToolUI.class);
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 1100;
 	public static final int HEIGHT = 800;
@@ -51,7 +61,7 @@ public class ToolUI extends JFrame {
 		// }
 		// icon = this.getToolkit().getImage("seasky16.png");
 		// setIconImage(icon);
-		setTitle("合同流程数据管理工具");
+		setTitle("合同管理工具");
 		setLayout(new BorderLayout());
 
 		// create editor panel
@@ -61,8 +71,9 @@ public class ToolUI extends JFrame {
 		// JToolBar toolBar = new CustomToolBar(editorPanel);
 
 		JTabbedPane tab = new JTabbedPane();
-		tab.add("查询数据",new DataSelectPanel());
-		tab.add("添加数据",new DataAddPanel());
+		tab.add("查询合同",new DataSelectPanel());
+		tab.add("添加合同",new DataAddPanel());
+		tab.add("删除合同",new DeletePanel());
 		
 		getContentPane().add(tab, BorderLayout.CENTER);
 		// add(editorPanel, BorderLayout.CENTER);
@@ -136,8 +147,8 @@ public class ToolUI extends JFrame {
 			
 		}
 		
-		
 	}
+	
 	public class DataAddPanel extends JPanel{
 		
 		private static final long serialVersionUID = 1L;
@@ -153,6 +164,63 @@ public class ToolUI extends JFrame {
 			setLayout(new BorderLayout());
 			add(pPanel, BorderLayout.NORTH);
 			dataAddPanel = this;
+		}
+		
+	}
+	
+	public class DeletePanel extends JPanel{
+		private static final long serialVersionUID = 1L;
+		
+		public DeletePanel(){
+			JPanel up = new JPanel();
+			JLabel deleteLabel = new JLabel("删除不可以恢复,请输入要删除合同的[序号] :");
+			final JTextField deleteTextField = new JTextField(20);
+			JButton okBtn = new JButton("确定删除");
+			
+			up.add(deleteLabel);
+			up.add(deleteTextField);
+			up.add(okBtn);
+			up.setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), 100));
+			JPanel infoPanel = new JPanel();
+			JLabel textField = new JLabel("建议先使用查询,然后根据查询结果的[序号]删除数据");
+			textField.setForeground(Color.red);
+			infoPanel.add(textField);
+			
+			setLayout(new BorderLayout());
+			add(up, BorderLayout.NORTH);
+			add(infoPanel, BorderLayout.CENTER);
+			
+			
+			okBtn.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					String vs = deleteTextField.getText().trim();
+					if(vs.length() == 0){
+						Utils.showMsg("请输入序号!", "警告");
+						return;
+					}
+					//yes = 1, no = 0 or -1
+					int result = JOptionPane.showConfirmDialog(ToolUI.getIntance(), "确定删除数据,不可以恢复哦", "警告", JOptionPane.YES_NO_OPTION);
+//					System.out.println(result);
+					if(result == 0){
+						 log.info("确认 删除数据, 序号 = " + vs);
+						 int id = Integer.parseInt(vs);
+						 FCBean have = AppController.getInstance().checkDeleAble(id);
+						 if(have == null){
+							 Utils.showMsg("该序号不存在,请检查!", "警告");
+							 return;
+						 }
+						 boolean success = AppController.getInstance().deleteOne(id);
+						if(!success) {
+							Utils.showMsg("删除数据失败, ", "警告");
+						} else {
+							Utils.showMsg("删除数据成功", "信息");
+						}
+					}
+				}
+			});
+			
 		}
 		
 	}

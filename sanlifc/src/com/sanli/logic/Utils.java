@@ -1,8 +1,11 @@
 package com.sanli.logic;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import javax.swing.JOptionPane;
+
+import com.sanli.swing.ToolUI;
 
 /**
  * 工具类,不单独用个包了
@@ -37,11 +40,16 @@ public class Utils {
 	}
 	
 	public static String millisecondToDate(long timeMillis){
+		if(timeMillis <= 0)return "";
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(timeMillis);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		return dateFormat.format(calendar.getTime());
 		 
+	}
+	
+	public static void showMsg(String info, String title){
+		JOptionPane.showMessageDialog(ToolUI.getIntance(), info, title, JOptionPane.WARNING_MESSAGE);
 	}
 	
 	public static void main(String[] args) {

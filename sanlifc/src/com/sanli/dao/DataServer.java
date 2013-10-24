@@ -55,13 +55,13 @@ public class DataServer {
 		}
 	}
 	
-	private void delete(FCBean bean) {
+	public void delete(int id) {
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
 //			bean = new FCBean();
 //			bean.name = "updateTest";
 //			bean.uuid = 2;
-			int i = session.update("com.sanli.data.FLowChartMapper.delete", bean);
+			int i = session.update("com.sanli.data.FLowChartMapper.delete", id);
 			log.info("delete bean number = " + i);
 			session.commit();
 		} finally {
@@ -87,9 +87,6 @@ public class DataServer {
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
 			
-//			bean = new FCBean();
-//			bean.id = 0;
-//			bean.city = "÷ÿ«Ï";
 			List<FCBean> list = session.selectList("com.sanli.data.FLowChartMapper.select", bean);
 //			FCBean list = (FCBean)session.selectOne("com.sanli.data.FLowChartMapper.select", bean);
 //			if(list == null || list.size() == 0){
@@ -102,6 +99,29 @@ public class DataServer {
 		} finally {
 			session.close();
 		}
+	}
+	
+	public FCBean selectOne(FCBean bean){
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			
+			FCBean one = (FCBean)session.selectOne("com.sanli.data.FLowChartMapper.selectOne", bean.id);
+			return one;
+		} finally {
+			session.close();
+		}
+		
+	}
+	public FCBean selectOne(int id){
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			
+			FCBean one = (FCBean)session.selectOne("com.sanli.data.FLowChartMapper.selectOne", id);
+			return one;
+		} finally {
+			session.close();
+		}
+		
 	}
 
 	public static void main(String[] args) {

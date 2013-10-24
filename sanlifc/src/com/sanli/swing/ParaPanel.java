@@ -6,22 +6,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileFilter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
+import com.sanli.logic.AppController;
 import com.sanli.logic.TextFieldObject;
+import com.sanli.logic.TxtManager;
+import com.sanli.logic.Utils;
 import com.sanli.model.FCBean;
 
 /**
@@ -597,8 +603,12 @@ public class ParaPanel extends JPanel{
 		JPanel btnPanel = new JPanel();
 		JButton selectBtn = new JButton("查询...");
 		JButton resetBtn = new JButton("重置...");
+		JButton exportBtn = new JButton("导出查询结果");
+		JButton importBtn = new JButton("导入数据文件");
 		btnPanel.add(selectBtn);
 		btnPanel.add(resetBtn);
+		btnPanel.add(exportBtn);
+		btnPanel.add(importBtn);
 		tc.fill = GridBagConstraints.CENTER;
 		tc.gridy = 2;
 		tc.gridx = 1;
@@ -625,9 +635,10 @@ public class ParaPanel extends JPanel{
 			}
 		});
 		
+		exportBtn.addActionListener(new ExportAction());
+		importBtn.addActionListener(new ImportAction());
 		
 		addDatePickerEvent();
-//		this.updateUI();
 	}
 	
 //	@Override
@@ -666,31 +677,92 @@ public class ParaPanel extends JPanel{
 		}
 	}
 	
-	public static void main(String[] args) {
-		ParaPanel paraPanel = new ParaPanel();
-		System.out.println(paraPanel.vlist.size());
-		
-		//check field compare with database field
-		StringBuffer buffer = new StringBuffer();
-		ArrayList<String> list = new ArrayList<String>();
-		for(TextFieldObject tfo : paraPanel.vlist){
-			buffer.append(tfo.getName()).append("\r\n");
-			list.add(tfo.getName());
-		}
-//		System.out.println(buffer.toString());
-		
-		FCBean fcBean = new FCBean();
-		Field[] fields = fcBean.getClass().getFields();
-		int i = 0;
-		for(Field f : fields){
-			if(list.contains(f.getName())){
-				i++;
-			}else {
-				System.out.println("not contains = " + f.getName() );
+	class ExportAction implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			
+			if(AppController.getInstance().getTmpList().size() == 0){
+				Utils.showMsg("没有查询到数据,没必要导出", "警告");
+				return;
+			}
+			
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+			fileChooser.setDialogTitle("导出数据");
+			// fileChooser.setApproveButtonText("保存");
+			// editor.getStyledDocument().getDefaultRootElement();
+			fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+			fileChooser.setFileFilter(new FileFilter() {
+				@Override
+				public boolean accept(File f) {
+					return f.getName().toLowerCase().endsWith(".txt") || f.getName().toLowerCase().endsWith(".xm") || f.isDirectory();
+				}
+
+				@Override
+				public String getDescription() {
+					return "输入文件名";
+				}
+			});
+			int returnVal = fileChooser.showSaveDialog(getParent());
+			if(returnVal == JFileChooser.APPROVE_OPTION) {
+				File selectedFile = fileChooser.getSelectedFile();
+				String filePath = selectedFile.getPath();
+				if(!filePath.toLowerCase().endsWith(".txt")) {
+					// 处理文件名为
+					filePath = filePath + ".txt";
+				}
+
+				log.info("导出数据 , filePath = " + filePath);
+				
+				try {
+					boolean success = false;
+					success = TxtManager.getInstance().export(filePath, AppController.getInstance().getTmpList());
+					if(!success){
+						Utils.showMsg("导出数据失败", "警告");
+					}else{
+						Utils.showMsg("导出数据成功,可直接复制到Excel中查看,文件路径[" + filePath +"]", "信息");
+					}
+				} catch(Exception e1) {
+					log.error("导出数据错误 , " + e1.getMessage());
+				}
+
 			}
 		}
-		System.out.println("i = " + i);
+	}
+	
+	public class ImportAction implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Utils.showMsg("导入数据功能暂时没有实现", "警告");
+		}
 		
 	}
+//	public static void main(String[] args) {
+//		ParaPanel paraPanel = new ParaPanel();
+//		System.out.println(paraPanel.vlist.size());
+//		
+//		//check field compare with database field
+//		StringBuffer buffer = new StringBuffer();
+//		ArrayList<String> list = new ArrayList<String>();
+//		for(TextFieldObject tfo : paraPanel.vlist){
+//			buffer.append(tfo.getName()).append("\r\n");
+//			list.add(tfo.getName());
+//		}
+////		System.out.println(buffer.toString());
+//		
+//		FCBean fcBean = new FCBean();
+//		Field[] fields = fcBean.getClass().getFields();
+//		int i = 0;
+//		for(Field f : fields){
+//			if(list.contains(f.getName())){
+//				i++;
+//			}else {
+//				System.out.println("not contains = " + f.getName() );
+//			}
+//		}
+//		System.out.println("i = " + i);
+//		
+//	}
 
 }

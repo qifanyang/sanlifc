@@ -11,7 +11,8 @@ import javax.swing.JTable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.sanli.logic.Controller;
+import com.sanli.logic.AppController;
+import com.sanli.logic.Utils;
 import com.sanli.model.FCBean;
 
 /**
@@ -40,7 +41,16 @@ public class ShowPanel extends JPanel{
 	 */
 	public void showSelectResult() {
 		log.debug("show result in JTable....");
-		List<FCBean> list = Controller.getInstance().select();
+		List<FCBean> list = AppController.getInstance().select();
+		if(list == null){
+			Utils.showMsg("查无数据, 程序出现了异常, !", "警告");
+			return;
+		}
+		if(list.size() == 0){
+			Utils.showMsg("查无数据", "信息");
+			return;
+		}
+		
 		Vector<Vector<String>> rr = new Vector<Vector<String>>();
 		try{
 			for(FCBean bean : list){
@@ -50,11 +60,11 @@ public class ShowPanel extends JPanel{
 					if(!f.getName().equalsIgnoreCase("uuid")){
 						Class<?> type = f.getType();
 						if(type == int.class){
-							r.add(String.valueOf(f.getInt(bean)));
+							r.add(String.valueOf(f.getInt(bean) <= 0 ? "" : f.getInt(bean) ));
 						}else if(type == long.class){
-							r.add(String.valueOf(f.getLong(bean)));
+							r.add(Utils.millisecondToDate(f.getLong(bean)));
 						}else if(type == float.class){
-							r.add(String.valueOf(f.getFloat(bean)));
+							r.add(String.valueOf(f.getFloat(bean) <= 0 ? "" : f.getFloat(bean)));
 						}else if(type == String.class){
 							r.add(String.valueOf(f.get(bean) == null ? "" : f.get(bean)));
 						}
