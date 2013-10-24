@@ -12,7 +12,7 @@
 			<if test="city != null">
 				AND city like '%${city}%'
 			</if>
-			<if test="year != null">
+			<if test="year != null and year > 0">
 				AND year like '%${year}%'
 			</if>
 			<if test="create_project_title != null">

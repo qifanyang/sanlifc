@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -15,7 +17,7 @@ import com.sanli.model.FCBean;
  *执行数据库操作
  */
 public class DataServer {
-	
+	private static final Log log = LogFactory.getLog(DataServer.class);
 	
 	private static DataServer instance = new DataServer();
 	
@@ -25,6 +27,7 @@ public class DataServer {
 	
 	private DataServer(){
 		String resource = "com/sanli/data/mybatis-config.xml";
+		log.info("load myBatis config , resource path = " + resource);
 		InputStream inputStream = null;
 		try {
 			inputStream = Resources.getResourceAsStream(resource);
@@ -43,37 +46,37 @@ public class DataServer {
 		try {
 //			bean = new FCBean();
 //			bean.city = "重庆22";
-			bean.id = 4;
+//			bean.id = 4;
 			int i = session.insert("com.sanli.data.FLowChartMapper.insert", bean);
-			System.out.println("inset num = " + i);
+			log.info("insert bean number = " + i);
 			session.commit();
 		} finally {
 			session.close();
 		}
 	}
 	
-	private void delete() {
+	private void delete(FCBean bean) {
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			FCBean bean = new FCBean();
+//			bean = new FCBean();
 //			bean.name = "updateTest";
-			bean.uuid = 2;
+//			bean.uuid = 2;
 			int i = session.update("com.sanli.data.FLowChartMapper.delete", bean);
-			System.out.println("delete num = " + i);
+			log.info("delete bean number = " + i);
 			session.commit();
 		} finally {
 			session.close();
 		}
 	}
 
-	private void update() {
+	private void update(FCBean bean) {
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			FCBean fcBean = new FCBean();
-			fcBean.city = "成都更新";
-			fcBean.id = 0;
-			int i = session.update("com.sanli.data.FLowChartMapper.update", fcBean);
-			System.out.println("update num = " + i);
+//			FCBean fcBean = new FCBean();
+//			fcBean.city = "成都更新";
+//			fcBean.id = 0;
+			int i = session.update("com.sanli.data.FLowChartMapper.update", bean);
+			log.info("update bean id = " + bean.id);
 			session.commit();
 		} finally {
 			session.close();

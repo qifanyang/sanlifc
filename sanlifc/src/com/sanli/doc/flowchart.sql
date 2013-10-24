@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50530
+Source Server         : local
+Source Server Version : 50520
 Source Host           : localhost:3306
 Source Database       : test
 
 Target Server Type    : MYSQL
-Target Server Version : 50530
+Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2013-10-23 14:26:56
+Date: 2013-10-24 22:37:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -72,13 +72,12 @@ CREATE TABLE `flowchart` (
   `fapiao_c_money` float DEFAULT NULL,
   `remark` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`uuid`),
-  KEY `id` (`id`) USING BTREE,
-  KEY `city` (`city`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+  UNIQUE KEY `id` (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of flowchart
 -- ----------------------------
 INSERT INTO `flowchart` VALUES ('6', '0', '成都222', '0', null, null, null, null, null, null, null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', '0', null, '0', null, '0', null, '0', null, '0', null, '0', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', null);
 INSERT INTO `flowchart` VALUES ('7', '1', '成都222', '0', null, null, null, null, null, null, null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', '0', null, '0', null, '0', null, '0', null, '0', null, '0', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', null);
-INSERT INTO `flowchart` VALUES ('8', '1', '重庆22', '0', null, null, null, null, null, null, null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', '0', null, '0', null, '0', null, '0', null, '0', null, '0', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', null);
+INSERT INTO `flowchart` VALUES ('17', '4', '蓬安33', '212', '564564', null, null, null, null, null, null, null, null, null, null, null, '0', '0', '0', '0', '0', '0', '1382536559625', null, '0', null, '0', null, '0', null, '0', null, '0', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', null);
