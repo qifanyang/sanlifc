@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import com.sanli.dao.DataServer;
 import com.sanli.model.FCBean;
 import com.sanli.swing.AddPanel;
+import com.sanli.swing.EditPanel;
 import com.sanli.swing.ParaPanel;
 
 /**
@@ -58,6 +59,15 @@ public class AppController {
 	 */
 	public FCBean getInsertFCBean(){
 		List<TextFieldObject> vList = AddPanel.getInstance().getVList();
+		FCBean fcBean = new FCBean();
+		for(TextFieldObject tfo : vList){
+			fcBean.setValue(tfo.getName(), tfo.getVlaue());
+		}
+		return fcBean;
+	}
+	
+	public FCBean getUpdateFCBean(){
+		List<TextFieldObject> vList = EditPanel.getInstance().getVList();
 		FCBean fcBean = new FCBean();
 		for(TextFieldObject tfo : vList){
 			fcBean.setValue(tfo.getName(), tfo.getVlaue());
@@ -123,6 +133,16 @@ public class AppController {
 	public boolean deleteOne(int id) {
 		try{
 			DataServer.getInstance().delete(id);
+			return true;
+		}catch (Exception e) {
+			log.info("insert error ," + e);
+			return false;
+		}
+	}
+
+	public boolean update() {
+		try{
+			DataServer.getInstance().update(getUpdateFCBean());
 			return true;
 		}catch (Exception e) {
 			log.info("insert error ," + e);

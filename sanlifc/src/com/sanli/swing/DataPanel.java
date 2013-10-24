@@ -2,53 +2,45 @@ package com.sanli.swing;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
-import javax.swing.filechooser.FileFilter;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 
-import com.sanli.logic.AppController;
-import com.sanli.logic.AppWinUtils;
 import com.sanli.logic.TextFieldObject;
-import com.sanli.logic.AssetManager;
 import com.sanli.logic.Utils;
 import com.sanli.model.FCBean;
 
 /**
- * 参数面板
+ * 查询,编辑,插入都使用这个面板
  *
- * @author XF
- * 2013-10-21 下午10:17:47
  */
-public class ParaPanel extends JPanel{
-	private final static Log log = LogFactory.getLog(ParaPanel.class);
+public abstract class DataPanel extends JPanel{
+//	private final static Log log = LogFactory.getLog(ParaPanel.class);
 
 	private static final long serialVersionUID = 1L;
 	
-	private static ParaPanel instance = new ParaPanel();
+//	private static DataPanel instance = new DataPanel();
 	
-	private List<TextFieldObject> vlist = new ArrayList<TextFieldObject>();
+	public List<TextFieldObject> vlist = new ArrayList<TextFieldObject>();
 	
-	private ParaPanel(){
+	public GridBagConstraints tc = new GridBagConstraints();
+	
+	public DataPanel(){
 		
-		GridBagConstraints tc = new GridBagConstraints();
+		//UUID
+		JTextField uuidTextField = new JTextField("");
+		vlist.add(new TextFieldObject(uuidTextField, "uuid"));
+		
+//		GridBagConstraints tc = new GridBagConstraints();
 		tc.fill = GridBagConstraints.BOTH;
 		// c.fill = GridBagConstraints.REMAINDER;
 		tc.weightx = 1.0;
@@ -601,56 +593,19 @@ public class ParaPanel extends JPanel{
 		add(overlPanel, tc);
 		
 		
-		JPanel btnPanel = new JPanel();
-		JButton selectBtn = new JButton("查询...");
-		JButton resetBtn = new JButton("重置...");
-		JButton exportBtn = new JButton("导出查询结果");
-		JButton importBtn = new JButton("导入数据文件");
-		btnPanel.add(selectBtn);
-		btnPanel.add(resetBtn);
-		btnPanel.add(exportBtn);
-		btnPanel.add(importBtn);
-		tc.fill = GridBagConstraints.CENTER;
-		tc.gridy = 2;
-		tc.gridx = 1;
-		add(btnPanel, tc);
-		
-		selectBtn.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//执行查询,在主界面查询结果中显示查询结果
-				log.debug("action select......");
-				ShowPanel.getInstance().showSelectResult();
-			}
-		});
-		
-		resetBtn.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				for(TextFieldObject tfo : vlist){
-					tfo.setVlaue("");
-				}
-				
-			}
-		});
-		
-		exportBtn.addActionListener(new ExportAction());
-		importBtn.addActionListener(new ImportAction());
+//		JPanel btnPanel = new JPanel();
+//		JButton selectBtn = new JButton("确定添加...");
+//		JButton resetBtn = new JButton("重新填写...");
+//		btnPanel.add(selectBtn);
+//		btnPanel.add(resetBtn);
+//		tc.fill = GridBagConstraints.CENTER;
+//		tc.gridy = 2;
+//		tc.gridx = 1;
+//		add(btnPanel, tc);
 		
 		addDatePickerEvent();
 	}
 	
-//	@Override
-//	protected void paintComponent(Graphics g) {
-//		super.paintComponent(g);
-//		log.debug("paintComponent ..............");
-//	}
-	
-	public static ParaPanel getInstance(){
-		return instance;
-	}
 	
 	public List<TextFieldObject> getVList(){
 		return vlist;
@@ -678,93 +633,24 @@ public class ParaPanel extends JPanel{
 		}
 	}
 	
-	class ExportAction implements ActionListener{
-
-		public void actionPerformed(ActionEvent e) {
-			
-			if(AppController.getInstance().getTmpList().size() == 0){
-				AppWinUtils.showWarnMsg("没有查询到数据,没必要导出");
-				return;
-			}
-			
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
-			fileChooser.setDialogTitle("导出数据");
-			// fileChooser.setApproveButtonText("保存");
-			// editor.getStyledDocument().getDefaultRootElement();
-			fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-			fileChooser.setFileFilter(new FileFilter() {
-				@Override
-				public boolean accept(File f) {
-					return f.getName().toLowerCase().endsWith(".txt") || f.getName().toLowerCase().endsWith(".xm") || f.isDirectory();
+	public void fillData(FCBean bean) throws Exception{
+		for (TextFieldObject tfo : vlist) {
+			Field f = bean.getClass().getField(tfo.getName());
+			Class<?> type = f.getType();
+			if (type == int.class) {
+				tfo.setVlaue(String.valueOf(f.getInt(bean)));
+			} else if (type == long.class) {
+				tfo.setVlaue(Utils.millisecondToDate(f.getLong(bean)));
+			} else if (type == float.class) {
+				tfo.setVlaue(String.valueOf(f.getFloat(bean)));
+			} else if (type == String.class) {
+				Object obj = f.get(bean);
+				if (obj == null) {
+					tfo.setVlaue("");
+				} else {
+					tfo.setVlaue(String.valueOf(f.get(bean)));
 				}
-
-				@Override
-				public String getDescription() {
-					return "输入文件名";
-				}
-			});
-			int returnVal = fileChooser.showSaveDialog(getParent());
-			if(returnVal == JFileChooser.APPROVE_OPTION) {
-				File selectedFile = fileChooser.getSelectedFile();
-				String filePath = selectedFile.getPath();
-				if(!filePath.toLowerCase().endsWith(".txt")) {
-					// 处理文件名为
-					filePath = filePath + ".txt";
-				}
-
-				log.info("导出数据 , filePath = " + filePath);
-				
-				try {
-					boolean success = false;
-					success = AssetManager.getInstance().export(filePath, AppController.getInstance().getTmpList());
-					if(!success){
-						AppWinUtils.showWarnMsg("导出数据失败");
-					}else{
-						AppWinUtils.showNormalMsg("导出数据成功,可直接复制到Excel中查看,文件路径[" + filePath +"]");
-					}
-				} catch(Exception e1) {
-					log.error("导出数据错误 , " + e1.getMessage());
-				}
-
 			}
 		}
 	}
-	
-	public class ImportAction implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-//			Utils.showMsg("导入数据功能暂时没有实现", "警告");
-			EditDialog.getIntance().showEditDialog();
-		}
-		
-	}
-//	public static void main(String[] args) {
-//		ParaPanel paraPanel = new ParaPanel();
-//		System.out.println(paraPanel.vlist.size());
-//		
-//		//check field compare with database field
-//		StringBuffer buffer = new StringBuffer();
-//		ArrayList<String> list = new ArrayList<String>();
-//		for(TextFieldObject tfo : paraPanel.vlist){
-//			buffer.append(tfo.getName()).append("\r\n");
-//			list.add(tfo.getName());
-//		}
-////		System.out.println(buffer.toString());
-//		
-//		FCBean fcBean = new FCBean();
-//		Field[] fields = fcBean.getClass().getFields();
-//		int i = 0;
-//		for(Field f : fields){
-//			if(list.contains(f.getName())){
-//				i++;
-//			}else {
-//				System.out.println("not contains = " + f.getName() );
-//			}
-//		}
-//		System.out.println("i = " + i);
-//		
-//	}
-
 }

@@ -12,6 +12,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.sanli.logic.AppController;
+import com.sanli.logic.AppWinUtils;
 import com.sanli.logic.Utils;
 import com.sanli.model.FCBean;
 
@@ -43,11 +44,11 @@ public class ShowPanel extends JPanel{
 		log.debug("show result in JTable....");
 		List<FCBean> list = AppController.getInstance().select();
 		if(list == null){
-			Utils.showMsg("查无数据, 程序出现了异常, !", "警告");
+			AppWinUtils.showWarnMsg("查无数据, 程序出现了异常, !");
 			return;
 		}
 		if(list.size() == 0){
-			Utils.showMsg("查无数据", "信息");
+			AppWinUtils.showNormalMsg("查无数据");
 			return;
 		}
 		

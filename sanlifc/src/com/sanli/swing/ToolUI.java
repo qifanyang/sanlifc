@@ -3,6 +3,7 @@ package com.sanli.swing;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -23,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.sanli.logic.AppController;
+import com.sanli.logic.AppWinUtils;
 import com.sanli.logic.Utils;
 import com.sanli.model.FCBean;
 
@@ -77,13 +79,14 @@ public class ToolUI extends JFrame {
 		
 		getContentPane().add(tab, BorderLayout.CENTER);
 		// add(editorPanel, BorderLayout.CENTER);
-//		setSize(new Dimension(WIDTH, HEIGHT));
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize(dimension.width, dimension.height - 10);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 //		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 		instancEditor = this;
-		setResizable(false);
+//		setResizable(false);
 
 	}
 
@@ -197,7 +200,7 @@ public class ToolUI extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					String vs = deleteTextField.getText().trim();
 					if(vs.length() == 0){
-						Utils.showMsg("请输入序号!", "警告");
+						AppWinUtils.showWarnMsg("请输入序号!");
 						return;
 					}
 					//yes = 1, no = 0 or -1
@@ -208,14 +211,14 @@ public class ToolUI extends JFrame {
 						 int id = Integer.parseInt(vs);
 						 FCBean have = AppController.getInstance().checkDeleAble(id);
 						 if(have == null){
-							 Utils.showMsg("该序号不存在,请检查!", "警告");
+							 AppWinUtils.showWarnMsg("该序号不存在,请检查!");
 							 return;
 						 }
 						 boolean success = AppController.getInstance().deleteOne(id);
 						if(!success) {
-							Utils.showMsg("删除数据失败, ", "警告");
+							AppWinUtils.showWarnMsg("删除数据失败");
 						} else {
-							Utils.showMsg("删除数据成功", "信息");
+							AppWinUtils.showWarnMsg("删除数据成功");
 						}
 					}
 				}
