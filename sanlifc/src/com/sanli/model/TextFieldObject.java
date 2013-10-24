@@ -1,4 +1,4 @@
-package com.sanli.logic;
+package com.sanli.model;
 
 import javax.swing.JTextField;
 

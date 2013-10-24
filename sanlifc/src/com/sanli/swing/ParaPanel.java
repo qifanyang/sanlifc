@@ -26,10 +26,10 @@ import org.apache.commons.logging.LogFactory;
 
 import com.sanli.logic.AppController;
 import com.sanli.logic.AppWinUtils;
-import com.sanli.logic.TextFieldObject;
 import com.sanli.logic.AssetManager;
 import com.sanli.logic.Utils;
 import com.sanli.model.FCBean;
+import com.sanli.model.TextFieldObject;
 
 /**
  * ²ÎÊýÃæ°å

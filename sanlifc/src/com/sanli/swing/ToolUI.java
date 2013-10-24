@@ -203,17 +203,17 @@ public class ToolUI extends JFrame {
 						AppWinUtils.showWarnMsg("请输入序号!");
 						return;
 					}
+					int id = Integer.parseInt(vs);
+					FCBean have = AppController.getInstance().checkDeleAble(id);
+					if(have == null){
+						AppWinUtils.showWarnMsg("该序号不存在,请检查!");
+						return;
+					}
 					//yes = 1, no = 0 or -1
 					int result = JOptionPane.showConfirmDialog(ToolUI.getIntance(), "确定删除数据,不可以恢复哦", "警告", JOptionPane.YES_NO_OPTION);
 //					System.out.println(result);
 					if(result == 0){
 						 log.info("确认 删除数据, 序号 = " + vs);
-						 int id = Integer.parseInt(vs);
-						 FCBean have = AppController.getInstance().checkDeleAble(id);
-						 if(have == null){
-							 AppWinUtils.showWarnMsg("该序号不存在,请检查!");
-							 return;
-						 }
 						 boolean success = AppController.getInstance().deleteOne(id);
 						if(!success) {
 							AppWinUtils.showWarnMsg("删除数据失败");
