@@ -19,28 +19,29 @@ public class EditDialog extends JDialog{
 	
 	private EditDialog(){
 		add(editPanel);
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setSize(Toolkit.getDefaultToolkit().getScreenSize().width, 400);
 		setLocationRelativeTo(null);
 		setTitle("修改数据");
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//		setModal(true);
 	}
 	
-	public static EditDialog getIntance(){
+	public static EditDialog getInstance(){
 		return inntance;
 	}
 	
-	public void showEditDialog(){
+	public void showEditDialog(FCBean bean){
 		//使用bean填充面板
 		List<FCBean> tmpList = AppController.getInstance().getTmpList();
-		if(tmpList.size() > 0){
-			FCBean bean = tmpList.get(0);
-			try {
-				editPanel.fillData(bean);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		if(tmpList.size() > 0 && bean == null){
+			 bean = tmpList.get(0);
 		}
-		setModal(true);
+		try {
+			editPanel.fillData(bean);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 

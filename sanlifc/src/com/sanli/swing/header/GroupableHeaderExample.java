@@ -1,4 +1,4 @@
-package com.sanli.swing;
+package com.sanli.swing.header;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -11,6 +11,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
+
 
 /**
  * @version 1.0 11/09/98

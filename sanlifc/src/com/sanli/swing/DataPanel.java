@@ -563,7 +563,7 @@ public abstract class DataPanel extends JPanel{
 		
 		//工程验收情况和备注==========
 		JPanel overlPanel = new JPanel();
-		overlPanel.setBorder(new TitledBorder("发票交互情况一览表"));
+		overlPanel.setBorder(new TitledBorder("其它"));
 		overlPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c5 = new GridBagConstraints();
 		c5.fill = GridBagConstraints.BOTH;

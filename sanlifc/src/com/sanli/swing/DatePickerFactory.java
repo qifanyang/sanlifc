@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import net.sourceforge.jdatepicker.JDateComponentFactory;
@@ -23,7 +24,7 @@ public class DatePickerFactory {
 	
 	private  static JDatePanel datePanel;
 	
-	private static JDialog dialog;
+	private static JFrame dialog;
 	
 	private static JTextField jtf;
 
@@ -47,7 +48,7 @@ public class DatePickerFactory {
 	            }
 	        });
 			
-			dialog = new JDialog(ToolUI.getIntance());
+			dialog = new JFrame();
 			dialog.setTitle("Ê±¼ä");
 	//		dialog.setUndecorated(true);
 	//		dialog.setModal(true);

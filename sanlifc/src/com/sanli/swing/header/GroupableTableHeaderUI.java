@@ -1,4 +1,4 @@
-package com.sanli.swing;
+package com.sanli.swing.header;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+
 
 public class GroupableTableHeaderUI extends BasicTableHeaderUI {
 	  

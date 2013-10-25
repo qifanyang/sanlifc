@@ -27,7 +27,6 @@ import org.apache.commons.logging.LogFactory;
 import com.sanli.logic.AppController;
 import com.sanli.logic.AppWinUtils;
 import com.sanli.logic.AssetManager;
-import com.sanli.logic.Utils;
 import com.sanli.model.FCBean;
 import com.sanli.model.TextFieldObject;
 
@@ -571,7 +570,7 @@ public class ParaPanel extends JPanel{
 		
 		//工程验收情况和备注==========
 		JPanel overlPanel = new JPanel();
-		overlPanel.setBorder(new TitledBorder("发票交互情况一览表"));
+		overlPanel.setBorder(new TitledBorder("其它"));
 		overlPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c5 = new GridBagConstraints();
 		c5.fill = GridBagConstraints.BOTH;
@@ -736,7 +735,7 @@ public class ParaPanel extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 //			Utils.showMsg("导入数据功能暂时没有实现", "警告");
-			EditDialog.getIntance().showEditDialog();
+			EditDialog.getInstance().showEditDialog(null);
 		}
 		
 	}

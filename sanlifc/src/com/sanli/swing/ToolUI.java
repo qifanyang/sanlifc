@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
@@ -25,7 +27,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.sanli.logic.AppController;
 import com.sanli.logic.AppWinUtils;
-import com.sanli.logic.Utils;
 import com.sanli.model.FCBean;
 
 
@@ -87,6 +88,15 @@ public class ToolUI extends JFrame {
 		setVisible(true);
 		instancEditor = this;
 //		setResizable(false);
+		
+		this.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				ShowPanel.getInstance().setPopMenu(false);
+				ToolUI.this.pack();
+			}
+		});
 
 	}
 

@@ -2,7 +2,6 @@ package com.sanli.test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.prefs.BackingStoreException;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;

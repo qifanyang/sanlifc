@@ -1,4 +1,4 @@
-package com.sanli.swing;
+package com.sanli.swing.header;
 
 import java.util.Enumeration;
 import java.util.Vector;
@@ -6,6 +6,7 @@ import java.util.Vector;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+
 
 public class GroupableTableHeader extends JTableHeader {
 	  private static final String uiClassID = "GroupableTableHeaderUI";

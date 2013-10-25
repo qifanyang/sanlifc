@@ -1,4 +1,4 @@
-package com.sanli.swing;
+package com.sanli.swing.header;
 
 import java.awt.Component;
 import java.awt.Dimension;

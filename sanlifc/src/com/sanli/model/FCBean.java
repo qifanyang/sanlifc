@@ -1,9 +1,6 @@
 package com.sanli.model;
 
 import java.lang.reflect.Field;
-
-import org.apache.ibatis.executor.ReuseExecutor;
-
 import com.sanli.logic.Utils;
 
 
