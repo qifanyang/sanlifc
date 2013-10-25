@@ -26,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.sanli.logic.AppController;
 import com.sanli.logic.TextFieldObject;
-import com.sanli.logic.TxtManager;
+import com.sanli.logic.AssetManager;
 import com.sanli.logic.Utils;
 import com.sanli.model.FCBean;
 
@@ -716,7 +716,7 @@ public class ParaPanel extends JPanel{
 				
 				try {
 					boolean success = false;
-					success = TxtManager.getInstance().export(filePath, AppController.getInstance().getTmpList());
+					success = AssetManager.getInstance().export(filePath, AppController.getInstance().getTmpList());
 					if(!success){
 						Utils.showMsg("导出数据失败", "警告");
 					}else{

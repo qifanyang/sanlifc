@@ -15,11 +15,11 @@ import com.sanli.model.FCBean;
  * @author XF
  * 2013-10-22 ÏÂÎç10:59:01
  */
-public class TxtManager {
+public class AssetManager {
 	
-	private static TxtManager instance = new TxtManager();
+	private static AssetManager instance = new AssetManager();
 	
-	public static TxtManager getInstance(){
+	public static AssetManager getInstance(){
 		return instance;
 	}
 	
