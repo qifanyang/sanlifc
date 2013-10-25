@@ -2,6 +2,8 @@ package com.sanli.model;
 
 import java.lang.reflect.Field;
 
+import org.apache.ibatis.executor.ReuseExecutor;
+
 import com.sanli.logic.Utils;
 
 
@@ -79,6 +81,36 @@ public class FCBean {
 		}
 	}
 
+	/**
+	 * 检查Bean是不是为空,当所有数值为0,String长度为0,则表明该Bean为Null,不可以保存到数据库
+	 * @return
+	 */
+	public boolean isNull(){
+		boolean isNull = true;
+		try {
+			Field[] fields = this.getClass().getFields();
+			for(Field f : fields){
+				if(!f.getName().equalsIgnoreCase("uuid")){
+					Class<?> type = f.getType();
+					if(type == int.class){
+						isNull = f.getInt(this) != 0 ? false :  true;
+					}else if(type == long.class){
+						isNull = f.getLong(this) != 0 ? false :  true;
+					}else if(type == float.class){
+						isNull = f.getFloat(this) != 0 ? false :  true;
+					}else if(type == String.class){
+						isNull = f.get(this) == null || ((String)f.get(this)).length() <= 0 ? true :  false;
+					}
+				}
+				if(!isNull){
+					return false;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return isNull;
+	}
 //	public static void main(String[] args) {
 //		System.out.println(new Date(System.currentTimeMillis()));
 //		FCBean fcBean = new FCBean();

@@ -110,6 +110,7 @@ public class AppController {
 	public boolean insert(){
 		try{
 			FCBean bean = getInsertFCBean();
+	
 			DataServer.getInstance().insert(bean);
 			return true;
 		}catch (Exception e) {

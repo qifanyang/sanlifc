@@ -612,12 +612,17 @@ public class AddPanel extends JPanel{
 				//执行查询,在主界面查询结果中显示查询结果
 				log.info("action add data......");
 				log.info("check repeat id......");
+				if(AppController.getInstance().getInsertFCBean().isNull()){
+					Utils.showMsg("请填写数据,不能插入空数据!", "警告");
+					return ;
+				}
 				//id不能重复,数据库里面建立了唯一索引
 				FCBean bean = AppController.getInstance().checkInsertAble();
 				if(bean != null){
 					JOptionPane.showMessageDialog(ToolUI.getIntance(), "数据[序号 :"+bean.id+" ]重复,不能添加重复的序号,请修改...!", "警告", JOptionPane.WARNING_MESSAGE);
 					return;
 				}
+				
 				
 				boolean success = AppController.getInstance().insert();
 				//
