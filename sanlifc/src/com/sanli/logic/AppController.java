@@ -10,6 +10,7 @@ import com.sanli.dao.DataServer;
 import com.sanli.model.FCBean;
 import com.sanli.model.TextFieldObject;
 import com.sanli.swing.AddPanel;
+import com.sanli.swing.DataPanel;
 import com.sanli.swing.EditPanel;
 import com.sanli.swing.ParaPanel;
 
@@ -118,6 +119,18 @@ public class AppController {
 		return DataServer.getInstance().selectOne(id);
 	}
 
+	public boolean checkFormat(DataPanel panel){
+		List<TextFieldObject> vList = panel.getVList();
+		FCBean fcBean = new FCBean();
+		for(TextFieldObject tfo : vList){
+			int status = fcBean.setValue(tfo.getName(), tfo.getVlaue());
+			if(status != 0){
+				return false;
+			}
+		}
+		return true;
+		
+	}
 	public boolean insert(){
 		try{
 			FCBean bean = getInsertFCBean();

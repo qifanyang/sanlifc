@@ -45,6 +45,12 @@ public class AddPanel extends DataPanel{
 				//执行查询,在主界面查询结果中显示查询结果
 				log.info("action add data......");
 				log.info("check repeat id......");
+				
+				boolean isRightFormat = AppController.getInstance().checkFormat(instance);
+				if(!isRightFormat){
+					return;
+				}
+				
 				if(AppController.getInstance().getInsertFCBean().isNull()){
 					AppWinUtils.showWarnMsg("请填写数据,不能插入空数据!");
 					return ;

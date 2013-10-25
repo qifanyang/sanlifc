@@ -2,6 +2,8 @@ package com.sanli.logic;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
@@ -52,11 +54,38 @@ public class Utils {
 		JOptionPane.showMessageDialog(ToolUI.getIntance(), info, title, JOptionPane.WARNING_MESSAGE);
 	}
 	
+	
+	public static boolean isNumeric(String s){
+		Pattern pattern = Pattern.compile("^[0-9]*[.]?[0-9]*");
+		Matcher matcher = pattern.matcher(s);
+		return matcher.matches();
+	}
+	
+	/**
+	 * yyyy-MM-dd
+	 * @param s
+	 * @return
+	 */
+	public static boolean isDate(String s){
+		Pattern pattern = Pattern.compile("^[0-9]{4}[-]{1}[0-9]{1,2}[-]{1}[0-9]{1,2}$");
+		Matcher matcher = pattern.matcher(s);
+		return matcher.matches();
+	}
+	
+	
+	
 	public static void main(String[] args) {
 		long dateToLong = dateToMillisecond("2012-1-25");
 		System.out.println(dateToLong);
 		System.out.println(millisecondToDate(dateToLong));
 		System.out.println(dateToMillisecond(millisecondToDate(dateToLong)));
+		
+		System.out.println("=================");
+		String s = "223.1";
+		System.out.println(isNumeric(s));
+		
+		String date = "2012-57-74";
+		System.out.println(isDate(date));
 		
 	}
 

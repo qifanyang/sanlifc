@@ -2,6 +2,7 @@ package com.sanli.model;
 
 import java.lang.reflect.Field;
 import com.sanli.logic.Utils;
+import com.sanli.swing.AppWinUtils;
 
 
 /**
@@ -60,22 +61,56 @@ public class FCBean {
 	public float fapiao_c_money;
 	public String remark;
 	
-	public void setValue(String name, String value){
+	/**
+	 * 成功返回0,失败返回1
+	 * @param name
+	 * @param value
+	 * @return
+	 */
+	@SuppressWarnings("null")
+	public int setValue(String name, String value){
 		try {
 			Field field = getClass().getField(name);
 			Class<?> type = field.getType();
 			if(type == int.class){
-				field.setInt(this, value == null || value.length() ==0 ? 0 : Integer.parseInt(value));
+				if(value != null && value.length() > 0){
+					if(!Utils.isNumeric(value)){
+						AppWinUtils.showWarnMsg(name + "填写不正确, 只能填写数字");
+						return 1;
+					}
+					field.setInt(this, Integer.parseInt(value));
+				}else{
+					field.setInt(this, 0);
+				}
 			}else if(type == long.class){
-				field.set(this, Utils.dateToMillisecond(value));
+				if(value != null && value.length() > 0){
+					if(!Utils.isDate(value)){
+						AppWinUtils.showWarnMsg(name + " 填写不正确, 格式 YYYY-MM-DD \n    例如 :2013-5-12");
+						return 1;
+					}
+					field.setLong(this, Utils.dateToMillisecond(value));
+				}else{
+					field.setLong(this, 0);
+				}
+				
 			}else if(type == float.class){
-				field.set(this, value == null || value.length() ==0 ? 0 : Float.parseFloat(value));
+				if(value != null && value.length() > 0){
+					if(!Utils.isNumeric(value)){
+						AppWinUtils.showWarnMsg(name + " 填写不正确, 只能填写数字");
+						return 1;
+					}
+					field.set(this, Float.parseFloat(value));
+				}else{
+					field.set(this, 0);
+				}
+//				field.set(this, value == null || value.length() ==0 ? 0 : Float.parseFloat(value));
 			}else if(type == String.class){
 				field.set(this, value);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return 0;
 	}
 
 	/**
