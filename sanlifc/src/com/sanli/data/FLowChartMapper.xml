@@ -195,8 +195,8 @@
 			<if test="mis_number != null">
 				 mis_number = #{mis_number},
 			</if>
-			<if test="research_contract_number != null">,
-				 research_contract_number = #{research_contract_number}
+			<if test="research_contract_number != null">
+				 research_contract_number = #{research_contract_number},
 			</if>
 			<if test="simple_name != null">
 				 simple_name = #{simple_name},

@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
 
@@ -25,7 +26,6 @@ import org.apache.commons.logging.LogFactory;
 
 
 import com.sanli.logic.AppController;
-import com.sanli.logic.AppWinUtils;
 import com.sanli.logic.AssetManager;
 import com.sanli.model.FCBean;
 import com.sanli.model.TextFieldObject;
@@ -601,7 +601,7 @@ public class ParaPanel extends JPanel{
 		
 		
 		JPanel btnPanel = new JPanel();
-		JButton selectBtn = new JButton("查询...");
+		final JButton selectBtn = new JButton("查询...");
 		JButton resetBtn = new JButton("重置...");
 		JButton exportBtn = new JButton("导出查询结果");
 		JButton importBtn = new JButton("导入数据文件");
@@ -620,7 +620,18 @@ public class ParaPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				//执行查询,在主界面查询结果中显示查询结果
 				log.debug("action select......");
-				ShowPanel.getInstance().showSelectResult();
+				selectBtn.setText("正在查询");
+				selectBtn.setEnabled(false);
+				SwingUtilities.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						ShowPanel.getInstance().showSelectResult();
+						selectBtn.setText("查询...");
+						selectBtn.setEnabled(true);
+					}
+				});
+				
 			}
 		});
 		

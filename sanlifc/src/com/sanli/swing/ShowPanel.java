@@ -19,7 +19,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.sanli.logic.AppController;
-import com.sanli.logic.AppWinUtils;
 import com.sanli.logic.Utils;
 import com.sanli.model.FCBean;
 
@@ -50,6 +49,50 @@ public class ShowPanel extends JPanel{
 		tablePopupMenu.add(deleteMenuItem);
 		tablePopupMenu.setInvoker(new JTable());
 		tablePopupMenu.setBorderPainted(true);
+		
+		updateMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(table != null) {
+					tablePopupMenu.setVisible(false);
+					int row = table.getSelectedRow();
+					System.out.println("row = " + row);
+					if(row > -1) {
+						FCBean bean = new FCBean();
+						bean.id = Integer.parseInt(String.valueOf(table.getValueAt(row, 0)));
+						EditDialog.getInstance().showEditDialog(bean);
+						System.out.println("idididididi = " + bean.id);
+						return;
+					}else{
+						AppWinUtils.showWarnMsg("没选中,请单击选中一行");
+					}
+				}
+			}
+		});
+		
+		deleteMenuItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				tablePopupMenu.setVisible(false);
+				int row = table.getSelectedRow();
+				System.out.println("row = " + row);
+				if(row > -1) {
+					int result = JOptionPane.showConfirmDialog(ToolUI.getIntance(), "确定删除数据,不可以恢复哦", "警告", JOptionPane.YES_NO_OPTION);
+//					System.out.println(result);
+					if(result == 0){
+						AppController.getInstance().deleteOne(AppController.getInstance().getTmpList().get(row).id);
+						AppWinUtils.showNormalMsg("删除成功!");
+						ShowPanel.getInstance().showSelectResult();
+					}else{
+						return;
+					}
+				}else{
+					AppWinUtils.showWarnMsg("没选中,请单击选中一行");
+				}
+			}
+		});
 
 	}
 
@@ -131,46 +174,7 @@ public class ShowPanel extends JPanel{
 			}
 		});
 
-		updateMenuItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(table != null) {
-					tablePopupMenu.setVisible(false);
-					int row = table.getSelectedRow();
-					System.out.println("row = " + row);
-					if(row > -1) {
-						EditDialog.getInstance().showEditDialog(AppController.getInstance().getTmpList().get(row));
-						return;
-					}else{
-						AppWinUtils.showWarnMsg("没选中,请单击选中一行");
-					}
-				}
-			}
-		});
 		
-		deleteMenuItem.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				tablePopupMenu.setVisible(false);
-				int row = table.getSelectedRow();
-				System.out.println("row = " + row);
-				if(row > -1) {
-					int result = JOptionPane.showConfirmDialog(ToolUI.getIntance(), "确定删除数据,不可以恢复哦", "警告", JOptionPane.YES_NO_OPTION);
-//					System.out.println(result);
-					if(result == 0){
-						AppController.getInstance().deleteOne(AppController.getInstance().getTmpList().get(row).id);
-						AppWinUtils.showNormalMsg("删除成功!");
-//						ShowPanel.getInstance().showSelectResult();
-					}else{
-						return;
-					}
-				}else{
-					AppWinUtils.showWarnMsg("没选中,请单击选中一行");
-				}
-			}
-		});
 		
 		
 

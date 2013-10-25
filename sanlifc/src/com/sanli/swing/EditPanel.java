@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import com.sanli.logic.AppController;
-import com.sanli.logic.AppWinUtils;
 import com.sanli.model.FCBean;
 
 public class EditPanel extends DataPanel {
@@ -39,7 +38,7 @@ public class EditPanel extends DataPanel {
 					AppWinUtils.showWarnMsg("更新数据失败");
 				} else {
 					AppWinUtils.showNormalMsg("更新数据成功");
-//					ShowPanel.getInstance().showSelectResult();
+					ShowPanel.getInstance().showSelectResult();
 				}
 			}
 		});

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.JDialog;
 
+import com.sanli.dao.DataServer;
 import com.sanli.logic.AppController;
 import com.sanli.model.FCBean;
 
@@ -35,6 +36,9 @@ public class EditDialog extends JDialog{
 		List<FCBean> tmpList = AppController.getInstance().getTmpList();
 		if(tmpList.size() > 0 && bean == null){
 			 bean = tmpList.get(0);
+		}
+		if(bean != null){
+			bean = DataServer.getInstance().selectOne(bean.id);
 		}
 		try {
 			editPanel.fillData(bean);

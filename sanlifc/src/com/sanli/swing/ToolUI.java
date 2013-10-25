@@ -17,7 +17,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.TitledBorder;
@@ -26,7 +28,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.sanli.logic.AppController;
-import com.sanli.logic.AppWinUtils;
 import com.sanli.model.FCBean;
 
 
@@ -77,6 +78,7 @@ public class ToolUI extends JFrame {
 		tab.add("查询合同",new DataSelectPanel());
 		tab.add("添加合同",new DataAddPanel());
 		tab.add("删除合同",new DeletePanel());
+		tab.add("使用说明",new UseInfoPanel());
 		
 		getContentPane().add(tab, BorderLayout.CENTER);
 		// add(editorPanel, BorderLayout.CENTER);
@@ -137,26 +139,8 @@ public class ToolUI extends JFrame {
 			sPanel.add(scrollPane, BorderLayout.CENTER);
 			
 			setLayout(new BorderLayout());
-//			GridBagConstraints tc = new GridBagConstraints();
-//			tc.fill = GridBagConstraints.BOTH;
-//			// c.fill = GridBagConstraints.REMAINDER;
-//			tc.weightx = 1.0;
-//			tc.weighty = 1.0;
-//			tc.gridy = 0;
-//			tc.gridx = 0;
-//			setLayout(new GridBagLayout());
-			
-//			JPanel up = new JPanel();
-//			up.setPreferredSize(new Dimension(400, 150));
-//			up.add(paraPanel);
 			add(pPanel, BorderLayout.NORTH);
 			add(sPanel, BorderLayout.CENTER);
-//			add(up, tc);
-//			tc.gridy = 1;
-//			add(sPanel, tc);
-//			dataSelectPanel = this;
-			
-			//TODO 最小化后最大化ParaPanel和显示部分公共ScrollPanel了,不该公用
 			
 		}
 		
@@ -234,6 +218,21 @@ public class ToolUI extends JFrame {
 				}
 			});
 			
+		}
+		
+	}
+	
+	public static class UseInfoPanel extends JPanel{
+
+		private static final long serialVersionUID = 1L;
+		
+		public UseInfoPanel(){
+			String info = "1.查找合同:在文本框内输入条件,点击查询,将在表格里面显示查询结果,选中表格一行,右击鼠标弹出窗口可以删除和编辑该合同\n\n2.添加合同:输入" +
+					"合同内容,点击添加将保存数据,序号不可重复";
+			setLayout(new BorderLayout());
+			JTextArea textArea = new JTextArea(info);
+			textArea.setEditable(false);
+			add(textArea, BorderLayout.CENTER);
 		}
 		
 	}

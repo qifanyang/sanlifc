@@ -1,9 +1,13 @@
-package com.sanli.logic;
+package com.sanli.swing;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 
-import com.sanli.swing.ToolUI;
-
+/**
+ * 窗口小工具
+ * @author XF
+ */
 public class AppWinUtils{
 
 	private static String warn = "警告";
@@ -12,6 +16,7 @@ public class AppWinUtils{
 	public static void showWarnMsg(String info){
 		JOptionPane.showMessageDialog(ToolUI.getIntance(), info, warn, JOptionPane.WARNING_MESSAGE);
 	}
+	
 	public static void showNormalMsg(String info){
 		JOptionPane.showMessageDialog(ToolUI.getIntance(), info, normal, JOptionPane.INFORMATION_MESSAGE);
 	}
