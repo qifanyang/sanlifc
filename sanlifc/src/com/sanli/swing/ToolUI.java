@@ -239,8 +239,15 @@ public class ToolUI extends JFrame {
 		private static final long serialVersionUID = 1L;
 		
 		public UseInfoPanel(){
-			String info = "1.查找合同:在文本框内输入条件,点击查询,将在表格里面显示查询结果,选中表格一行,右击鼠标弹出窗口可以删除和编辑该合同\n\n2.添加合同:输入" +
-					"合同内容,点击添加将保存数据,序号不可重复";
+			String info = "" +
+					"查找合同:\n" +
+					"	1.查询按钮--->在文本框内输入所有条件,点击中间部分的查询按钮,将在表格里面显示查询结果,不输入条件默认查询所有数据,选中表格一行,右击鼠标弹出窗口可以删除和编辑该合同\n" +
+					"	2.重置按钮--->点击重置按钮,将清除所有的查询条件\n" +
+					"	3.导出数据--->点击导出数据,将导出查询的结果(下半部分表格),导出的文本文件可直接复制到Excel中查看(Ctr+A然后Ctr+V即可)\n" +
+					"	4.导入数据--->暂时没有实现\n" +
+					"添加合同:\n" +
+					"	1.确定添加--->在文本框数据要新添加的内容,点击确定添加,将保存至数据库中,注意:需要填写数字的不能填写字母,时间填写直接选择不要手动修改\n" +
+					"	2.重新填写--->清除所有填写的内容";
 			setLayout(new BorderLayout());
 			JTextArea textArea = new JTextArea(info);
 			textArea.setEditable(false);

@@ -1,6 +1,7 @@
 package com.sanli.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -14,12 +15,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.sanli.logic.AppController;
 import com.sanli.model.FCBean;
+import com.sanli.util.LanguageLoader;
 import com.sanli.util.Utils;
 
 /**
@@ -35,10 +40,15 @@ public class ShowPanel extends JPanel{
 	private final JPopupMenu tablePopupMenu;
 	private final JMenuItem updateMenuItem;
 	private final JMenuItem deleteMenuItem;
+	
+	Vector<String> header = new Vector<String>();
 
 	private ShowPanel() {
+		
+		
 //TODO table使用model来跟新数据,后面修改
 		this.setLayout(new BorderLayout());
+		
 		// 创建弹出菜单
 		tablePopupMenu = new JPopupMenu();
 		updateMenuItem = new JMenuItem("修改合同");
@@ -61,7 +71,7 @@ public class ShowPanel extends JPanel{
 						FCBean bean = new FCBean();
 						bean.id = Integer.parseInt(String.valueOf(table.getValueAt(row, 0)));
 						EditDialog.getInstance().showEditDialog(bean);
-						System.out.println("idididididi = " + bean.id);
+//						System.out.println("idididididi = " + bean.id);
 						return;
 					}else{
 						AppWinUtils.showWarnMsg("没选中,请单击选中一行");
@@ -84,7 +94,7 @@ public class ShowPanel extends JPanel{
 					if(result == 0){
 						AppController.getInstance().deleteOne(AppController.getInstance().getTmpList().get(row).id);
 						AppWinUtils.showNormalMsg("删除成功!");
-						ShowPanel.getInstance().showSelectResult();
+						ShowPanel.getInstance().showSelectResult(2);
 					}else{
 						return;
 					}
@@ -107,13 +117,18 @@ public class ShowPanel extends JPanel{
 	}
 	/**
 	 * 采用JTable显示
-	 * 
+	 * @type 1:单个     2:所有
 	 * @throws IllegalAccessException
 	 * @throws Exception
 	 */
-	public void showSelectResult() {
+	public void showSelectResult(int type1) {
 		log.debug("show result in JTable....");
-		List<FCBean> list = AppController.getInstance().select();
+		List<FCBean> list = null;
+		if(type1 == 1){
+			list = AppController.getInstance().select();
+		}else if(type1 == 2){
+			list = AppController.getInstance().selectAll();
+		}
 		if(list == null) {
 			AppWinUtils.showWarnMsg("查无数据, 程序出现了异常, !");
 			return;
@@ -130,6 +145,7 @@ public class ShowPanel extends JPanel{
 				Vector<String> r = new Vector<String>();
 				for(Field f : fields) {
 					if(!f.getName().equalsIgnoreCase("uuid")) {
+						addHeaderName(f.getName());
 						Class<?> type = f.getType();
 						if(type == int.class) {
 							r.add(String.valueOf(f.getInt(bean) <= 0 ? "" : f.getInt(bean)));
@@ -148,10 +164,10 @@ public class ShowPanel extends JPanel{
 			System.out.println(e);
 		}
 
-		Vector<String> header = new Vector<String>();
-		for(int i = 0; i < 50; i++) {
-			header.add(String.valueOf(i));
-		}
+//		Vector<String> header = new Vector<String>();
+//		for(int i = 0; i < 50; i++) {
+//			header.add(String.valueOf(i));
+//		}
 
 		table = new JTable(rr, header);
 		// JScrollPane scrollPane = new JScrollPane(table);
@@ -173,11 +189,34 @@ public class ShowPanel extends JPanel{
 				}
 			}
 		});
+		
+//		int columnCount = table.getColumnCount();
+//		for(int i =0; i < columnCount; i++){
+//			adjustColumnPreferredWidths(table, i);
+//		}
 
-		
-		
-		
-
+	}
+	
+	private void addHeaderName(String name){
+		if(header.size() < 50){
+			header.add(LanguageLoader.getInstance().getUIName(name));
+		}
+	}
+	
+	 public static void adjustColumnPreferredWidths(JTable table, int col) {
+	        // strategy - get max width for cells in column and
+	        // make that the preferred width
+		TableColumnModel columnModel = table.getColumnModel();
+		TableColumnModel columnModel2 = table.getTableHeader().getColumnModel();
+		int maxwidth = 0;
+		for(int row = 0; row < table.getRowCount(); row++) {
+			TableCellRenderer rend = table.getCellRenderer(row, col);
+			Object value = table.getValueAt(row, col);
+			Component comp = rend.getTableCellRendererComponent(table, value, false, false, row, col);
+			maxwidth = Math.max(comp.getPreferredSize().width, maxwidth);
+		} // for row
+		TableColumn column = columnModel.getColumn(col);
+		column.setPreferredWidth(maxwidth + 3);
 	}
 
 }

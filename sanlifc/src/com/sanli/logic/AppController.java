@@ -92,6 +92,21 @@ public class AppController {
 		return null;
 	}
 	
+	public  List<FCBean> selectAll(){
+		try{
+			List<FCBean> list = select(new FCBean());
+			//从数据库查询出来的数据,时间为long,table显示需要转换为yyyy-MM-dd
+			//这里可以使用JTable的render
+			tmpList.clear();
+			tmpList.addAll(list);
+			return list;
+		}catch (Exception e) {
+			log.info("select error ," + e);
+		}
+		return null;
+		
+	}
+	
 	public List<FCBean> select(FCBean bean){
 		List<FCBean> list = DataServer.getInstance().select(bean);
 		return list;

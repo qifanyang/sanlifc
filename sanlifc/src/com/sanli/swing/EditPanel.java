@@ -33,12 +33,16 @@ public class EditPanel extends DataPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				EditDialog.getInstance().setVisible(false);
+				boolean isRightFormat = AppController.getInstance().checkFormat(instance);
+				if(!isRightFormat){
+					return;
+				}
 				boolean success = AppController.getInstance().update();
 				if(!success) {
 					AppWinUtils.showWarnMsg("更新数据失败");
 				} else {
 					AppWinUtils.showNormalMsg("更新数据成功");
-					ShowPanel.getInstance().showSelectResult();
+					ShowPanel.getInstance().showSelectResult(2);
 				}
 			}
 		});

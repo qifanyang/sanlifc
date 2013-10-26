@@ -626,7 +626,7 @@ public class ParaPanel extends JPanel{
 					
 					@Override
 					public void run() {
-						ShowPanel.getInstance().showSelectResult();
+						ShowPanel.getInstance().showSelectResult(1);
 						selectBtn.setText("查询...");
 						selectBtn.setEnabled(true);
 					}
@@ -745,8 +745,8 @@ public class ParaPanel extends JPanel{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			Utils.showMsg("导入数据功能暂时没有实现", "警告");
-			EditDialog.getInstance().showEditDialog(null);
+			AppWinUtils.showWarnMsg("导入数据功能暂时没有实现");
+//			EditDialog.getInstance().showEditDialog(null);
 		}
 		
 	}

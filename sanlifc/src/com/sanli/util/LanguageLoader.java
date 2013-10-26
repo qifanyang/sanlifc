@@ -28,7 +28,7 @@ public class LanguageLoader{
 				if(line.startsWith("#"))continue;
 				
 				String[] strings = line.split("=");
-				map.put(strings[0], "[" + strings[1] + "]");
+				map.put(strings[0], strings[1] );
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -48,7 +48,13 @@ public class LanguageLoader{
 	}
 
 	public String getUIName(String key){
-		return map.get(key);
+		return "[" + map.get(key) + "]";
 		
+	}
+	
+	public String[] getUINameList(){
+		String[] ss = new String[map.size()];
+		map.values().toArray(ss);
+		return ss;
 	}
 }
