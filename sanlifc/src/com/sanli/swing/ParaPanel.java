@@ -619,7 +619,7 @@ public class ParaPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//执行查询,在主界面查询结果中显示查询结果
-				log.debug("action select......");
+				log.info("执行查询 ......");
 				selectBtn.setText("正在查询");
 				selectBtn.setEnabled(false);
 				SwingUtilities.invokeLater(new Runnable() {
@@ -646,7 +646,13 @@ public class ParaPanel extends JPanel{
 			}
 		});
 		
-		exportBtn.addActionListener(new ExportAction());
+		exportBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ExportDialog.getInstance().showExport();
+			}
+		});
 		importBtn.addActionListener(new ImportAction());
 		
 		addDatePickerEvent();
@@ -685,59 +691,6 @@ public class ParaPanel extends JPanel{
 			});
 			
 			
-		}
-	}
-	
-	class ExportAction implements ActionListener{
-
-		public void actionPerformed(ActionEvent e) {
-			
-			if(AppController.getInstance().getTmpList().size() == 0){
-				AppWinUtils.showWarnMsg("没有查询到数据,没必要导出");
-				return;
-			}
-			
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
-			fileChooser.setDialogTitle("导出数据");
-			// fileChooser.setApproveButtonText("保存");
-			// editor.getStyledDocument().getDefaultRootElement();
-			fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-			fileChooser.setFileFilter(new FileFilter() {
-				@Override
-				public boolean accept(File f) {
-					return f.getName().toLowerCase().endsWith(".txt") || f.getName().toLowerCase().endsWith(".xm") || f.isDirectory();
-				}
-
-				@Override
-				public String getDescription() {
-					return "输入文件名";
-				}
-			});
-			int returnVal = fileChooser.showSaveDialog(getParent());
-			if(returnVal == JFileChooser.APPROVE_OPTION) {
-				File selectedFile = fileChooser.getSelectedFile();
-				String filePath = selectedFile.getPath();
-				if(!filePath.toLowerCase().endsWith(".txt")) {
-					// 处理文件名为
-					filePath = filePath + ".txt";
-				}
-
-				log.info("导出数据 , filePath = " + filePath);
-				
-				try {
-					boolean success = false;
-					success = AssetManager.getInstance().export(filePath, AppController.getInstance().getTmpList());
-					if(!success){
-						AppWinUtils.showWarnMsg("导出数据失败");
-					}else{
-						AppWinUtils.showNormalMsg("导出数据成功,可直接复制到Excel中查看,文件路径[" + filePath +"]");
-					}
-				} catch(Exception e1) {
-					log.error("导出数据错误 , " + e1.getMessage());
-				}
-
-			}
 		}
 	}
 	

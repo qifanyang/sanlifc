@@ -122,7 +122,7 @@ public class ShowPanel extends JPanel{
 	 * @throws Exception
 	 */
 	public void showSelectResult(int type1) {
-		log.debug("show result in JTable....");
+		log.error("show result in JTable....");
 		List<FCBean> list = null;
 		if(type1 == 1){
 			list = AppController.getInstance().select();
