@@ -1,4 +1,4 @@
-package com.sanli.logic;
+package com.sanli.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -56,7 +56,7 @@ public class Utils {
 	
 	
 	public static boolean isNumeric(String s){
-		Pattern pattern = Pattern.compile("^[0-9]*[.]?[0-9]*");
+		Pattern pattern = Pattern.compile("^[0-9]*[.]?[0-9]*$");
 		Matcher matcher = pattern.matcher(s);
 		return matcher.matches();
 	}

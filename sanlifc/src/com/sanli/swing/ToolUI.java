@@ -29,6 +29,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.sanli.logic.AppController;
 import com.sanli.model.FCBean;
+import com.sanli.util.LanguageLoader;
 
 
 
@@ -99,6 +100,17 @@ public class ToolUI extends JFrame {
 				ToolUI.this.pack();
 			}
 		});
+		
+		
+		//初始化其它
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				LanguageLoader.getInstance().init();
+			}
+		}).start();
+		
 
 	}
 

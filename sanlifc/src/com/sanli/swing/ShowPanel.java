@@ -19,8 +19,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.sanli.logic.AppController;
-import com.sanli.logic.Utils;
 import com.sanli.model.FCBean;
+import com.sanli.util.Utils;
 
 /**
  * 显示面板，用于显示查询结果

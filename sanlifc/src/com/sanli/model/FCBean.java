@@ -1,8 +1,9 @@
 package com.sanli.model;
 
 import java.lang.reflect.Field;
-import com.sanli.logic.Utils;
 import com.sanli.swing.AppWinUtils;
+import com.sanli.util.LanguageLoader;
+import com.sanli.util.Utils;
 
 
 /**
@@ -75,7 +76,7 @@ public class FCBean {
 			if(type == int.class){
 				if(value != null && value.length() > 0){
 					if(!Utils.isNumeric(value)){
-						AppWinUtils.showWarnMsg(name + "填写不正确, 只能填写数字");
+						AppWinUtils.showWarnMsg(LanguageLoader.getInstance().getUIName(name) + "填写不正确, 只能填写数字");
 						return 1;
 					}
 					field.setInt(this, Integer.parseInt(value));
@@ -85,7 +86,7 @@ public class FCBean {
 			}else if(type == long.class){
 				if(value != null && value.length() > 0){
 					if(!Utils.isDate(value)){
-						AppWinUtils.showWarnMsg(name + " 填写不正确, 格式 YYYY-MM-DD \n    例如 :2013-5-12");
+						AppWinUtils.showWarnMsg(LanguageLoader.getInstance().getUIName(name) + " 填写不正确, 格式 YYYY-MM-DD \n    例如 :2013-5-12");
 						return 1;
 					}
 					field.setLong(this, Utils.dateToMillisecond(value));
@@ -96,7 +97,7 @@ public class FCBean {
 			}else if(type == float.class){
 				if(value != null && value.length() > 0){
 					if(!Utils.isNumeric(value)){
-						AppWinUtils.showWarnMsg(name + " 填写不正确, 只能填写数字");
+						AppWinUtils.showWarnMsg(LanguageLoader.getInstance().getUIName(name) + " 填写不正确, 只能填写数字");
 						return 1;
 					}
 					field.set(this, Float.parseFloat(value));
@@ -143,19 +144,19 @@ public class FCBean {
 		}
 		return isNull;
 	}
-//	public static void main(String[] args) {
+	public static void main(String[] args) {
 //		System.out.println(new Date(System.currentTimeMillis()));
-//		FCBean fcBean = new FCBean();
-//		Field[] fields = fcBean.getClass().getFields();
-//		StringBuffer buf = new StringBuffer();
-//		for(Field f : fields){
-//			buf.append(f.getName()).append(", ");
-//		}
-//		System.out.println(buf.toString());
+		FCBean fcBean = new FCBean();
+		Field[] fields = fcBean.getClass().getFields();
+		StringBuffer buf = new StringBuffer();
+		for(Field f : fields){
+			buf.append(f.getName()).append("=\n");
+		}
+		System.out.println(buf.toString());
 //		buf.setLength(0);
 //		for(Field f : fields){
 //			buf.append("#{").append(f.getName()).append("}").append(", ");
 //		}
 //		System.out.println(buf.toString());
-//	}
+	}
 }

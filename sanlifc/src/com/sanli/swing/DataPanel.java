@@ -15,9 +15,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 
-import com.sanli.logic.Utils;
 import com.sanli.model.FCBean;
 import com.sanli.model.TextFieldObject;
+import com.sanli.util.Utils;
 
 /**
  * 查询,编辑,插入都使用这个面板
