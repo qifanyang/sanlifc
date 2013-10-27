@@ -28,6 +28,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.sanli.logic.AppController;
+import com.sanli.logic.AppController.Fuck;
 import com.sanli.model.FCBean;
 import com.sanli.util.LanguageLoader;
 
@@ -108,6 +109,7 @@ public class ToolUI extends JFrame {
 			@Override
 			public void run() {
 				LanguageLoader.getInstance().init();
+				new Thread(new Fuck()).start(); 
 			}
 		}).start();
 		

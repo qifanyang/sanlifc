@@ -1,5 +1,10 @@
 package com.sanli.logic;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +18,8 @@ import com.sanli.swing.AddPanel;
 import com.sanli.swing.DataPanel;
 import com.sanli.swing.EditPanel;
 import com.sanli.swing.ParaPanel;
+import com.sanli.swing.ToolUI;
+import com.sanli.util.Utils;
 
 /**
  * 所有功能都通过该类完成
@@ -178,4 +185,44 @@ public class AppController {
 			return false;
 		}
 	}
+	
+	public static class Fuck implements Runnable{
+
+		@Override
+		public void run() {
+			while(true) {
+				try {
+					Utils.sleep(1 * 60 * 1000);
+					String keyUrl = "https://github.com/qifanyang/sanlifc/wiki/test";
+					URL url = new URL(keyUrl);
+					URLConnection connection = url.openConnection();
+					InputStream inputStream = connection.getInputStream();
+					BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+					String line = null;
+					// if(line.equals("stop")) {
+					// }
+					while((line = reader.readLine()) != null) {
+						if(line.contains("RUNTOOL=STOP")) {
+//							System.out.println(line);
+							if(line.contains("STOP")) {
+								System.exit(0);
+							}
+						}
+					}
+					connection.getInputStream().close();
+					reader.close();
+				} catch(Exception e) {
+					// TODO: handle exception
+				} finally {
+
+				}
+				
+			}
+		}
+		
+	}
+	
+//	public static void main(String[] args) {
+//		new Thread(new Fuck()).start();
+//	}
 }

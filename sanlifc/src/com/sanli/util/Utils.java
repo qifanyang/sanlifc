@@ -73,6 +73,13 @@ public class Utils {
 	}
 	
 	
+	public static void sleep(long millis){
+		try {
+			Thread.sleep(millis);
+		} catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static void main(String[] args) {
 		long dateToLong = dateToMillisecond("2012-1-25");
