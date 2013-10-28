@@ -31,13 +31,18 @@ public class EditDialog extends JDialog{
 		return inntance;
 	}
 	
-	public void showEditDialog(FCBean bean){
+	public void showEditDialog(int id){
 		//聞喘bean野割中医
+		FCBean bean = null ;
 		List<FCBean> tmpList = AppController.getInstance().getTmpList();
-		if(tmpList.size() > 0 && bean == null){
-			 bean = tmpList.get(0);
+		for(FCBean bb : tmpList){
+			if(bb.id == id){
+				bean = bb;
+				break;
+			}
 		}
-		if(bean != null){
+		
+		if(bean.id != id){
 			bean = DataServer.getInstance().selectOne(bean.id);
 		}
 		try {

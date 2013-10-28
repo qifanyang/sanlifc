@@ -124,10 +124,10 @@ public class AssetManager {
 	 */
 	public List<FCBean> importExcel(String path) throws Exception {
 		List<FCBean> list = new ArrayList<FCBean>();
+		
 		// 读取批量导入文件
 		// 创建对Excel工作簿文件的引用
-		HSSFWorkbook workbook = new HSSFWorkbook(
-				FileUtil.getAssetByClassLoader("moban.xls"));
+		HSSFWorkbook workbook = new HSSFWorkbook(new FileInputStream(path));
 		// 创建对工作表的引用。
 		// 本例是按名引用（让我们假定那张表有着缺省名"Sheet1"）
 		HSSFSheet sheet = workbook.getSheet("2013年度");
@@ -160,7 +160,9 @@ public class AssetManager {
 					x++;
 				}
 			}
-			list.add(bean);
+			if(!bean.isNull()){
+				list.add(bean);
+			}
 		}
 
 		return list;

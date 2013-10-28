@@ -68,7 +68,6 @@ public class FCBean {
 	 * @param value
 	 * @return
 	 */
-	@SuppressWarnings("null")
 	public int setValue(String name, String value){
 		try {
 			Field field = getClass().getField(name);
@@ -115,7 +114,7 @@ public class FCBean {
 	}
 
 	/**
-	 * 检查Bean是不是为空,当所有数值为0,String长度为0,则表明该Bean为Null,不可以保存到数据库
+	 * 检查Bean是不是为空,当所有数值为0,String长度为0,则表明该Bean为Null,不可以保存到数据库,也可以不在Table中显示
 	 * @return
 	 */
 	public boolean isNull(){

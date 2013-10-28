@@ -2,6 +2,7 @@ package com.sanli.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -93,6 +94,9 @@ public class Utils {
 		
 		String date = "2012-57-74";
 		System.out.println(isDate(date));
+		
+		SimpleDateFormat format = new SimpleDateFormat("MM-dd HH:mm");
+		System.out.println(format.format(Calendar.getInstance().getTime()));
 		
 	}
 

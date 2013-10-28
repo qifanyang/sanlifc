@@ -70,9 +70,9 @@ public class ShowPanel extends JPanel{
 					int row = table.getSelectedRow();
 					System.out.println("row = " + row);
 					if(row > -1) {
-						FCBean bean = new FCBean();
-						bean.id = Integer.parseInt(String.valueOf(table.getValueAt(row, 0)));
-						EditDialog.getInstance().showEditDialog(bean);
+//						FCBean bean = new FCBean();
+						int id = Integer.parseInt(String.valueOf(table.getValueAt(row, 0)));
+						EditDialog.getInstance().showEditDialog(id);
 //						System.out.println("idididididi = " + bean.id);
 						return;
 					}else{
@@ -132,6 +132,13 @@ public class ShowPanel extends JPanel{
 		}else if(type1 == 2){
 			list = AppController.getInstance().selectAll();
 		}
+		
+		showInTable(list);
+		
+
+	}
+	
+	public void showInTable(List<FCBean> list){
 		if(list == null) {
 			AppWinUtils.showWarnMsg("查无数据, 程序出现了异常 !");
 			return;
@@ -166,6 +173,8 @@ public class ShowPanel extends JPanel{
 		} catch(Exception e) {
 			System.out.println(e);
 		}
+		
+	
 
 //		Vector<String> header = new Vector<String>();
 //		for(int i = 0; i < 50; i++) {
@@ -192,12 +201,6 @@ public class ShowPanel extends JPanel{
 				}
 			}
 		});
-		
-//		int columnCount = table.getColumnCount();
-//		for(int i =0; i < columnCount; i++){
-//			adjustColumnPreferredWidths(table, i);
-//		}
-
 	}
 	
 	private void addHeaderName(String name){

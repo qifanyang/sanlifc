@@ -32,6 +32,9 @@ public class AppController {
 	
 	private static List<FCBean> tmpList;
 	
+	/**Table总显示的数据是否从外部导入的*/
+	public boolean isImport = false;
+	
 	private AppController(){
 		tmpList = new ArrayList<FCBean>();
 	}
@@ -42,7 +45,7 @@ public class AppController {
 	
 	
 	/**
-	 * 保存查询结果的临时list
+	 * 保存查询结果的临时list,导入数据时也要跟新这个list
 	 * @return
 	 */
 	public List<FCBean> getTmpList(){

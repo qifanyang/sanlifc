@@ -1,6 +1,8 @@
 package com.sanli.util;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
+
 
 public class FileUtil{
 	
@@ -14,4 +16,7 @@ public class FileUtil{
 		return instance.getClass().getClassLoader().getResourceAsStream("com/sanli/data/" + name);
 	}
 
+//	public static InputStream getAssetByFilePath(String path){
+//		return new FileInputStream(path);
+//	}
 }

@@ -10,6 +10,10 @@ import javax.swing.JPanel;
 import com.sanli.logic.AppController;
 import com.sanli.model.FCBean;
 
+/**
+ * 编辑面板显示的数据可能是从数据库加载也可能是从外部导入的,外部导入的数据不存库
+ *
+ */
 public class EditPanel extends DataPanel {
 
 	private static final long serialVersionUID = 1L;
