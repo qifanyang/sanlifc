@@ -30,6 +30,8 @@ import com.sanli.util.Utils;
 /**
  * 显示面板，用于显示查询结果
  * 
+ *TODO 这个类里面的方法有点乱,后面要整理,有的方法要分开,不然很多逻辑都在一个方法里面.不放便复用
+ * 
  * @author XF 2013-10-21 下午10:19:47
  */
 public class ShowPanel extends JPanel{
@@ -116,6 +118,7 @@ public class ShowPanel extends JPanel{
 		updateUI();
 	}
 	/**
+	 * 这个方法要改,改成之负责显示,参数为一个list,
 	 * 采用JTable显示
 	 * @type 1:单个     2:所有
 	 * @throws IllegalAccessException
@@ -130,7 +133,7 @@ public class ShowPanel extends JPanel{
 			list = AppController.getInstance().selectAll();
 		}
 		if(list == null) {
-			AppWinUtils.showWarnMsg("查无数据, 程序出现了异常, !");
+			AppWinUtils.showWarnMsg("查无数据, 程序出现了异常 !");
 			return;
 		}
 		if(list.size() == 0) {

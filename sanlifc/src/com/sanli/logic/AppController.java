@@ -49,6 +49,11 @@ public class AppController {
 		return tmpList;
 	}
 
+	
+	public void readdTmpList(List<FCBean> list){
+		tmpList.clear();
+		tmpList.addAll(list);
+	}
 	/**
 	 * 从数据库查询数据时,从添加数据面板读取数据填充Bean
 	 * @return
@@ -101,6 +106,7 @@ public class AppController {
 	
 	public  List<FCBean> selectAll(){
 		try{
+			//空的bean表示查询所有
 			List<FCBean> list = select(new FCBean());
 			//从数据库查询出来的数据,时间为long,table显示需要转换为yyyy-MM-dd
 			//这里可以使用JTable的render
