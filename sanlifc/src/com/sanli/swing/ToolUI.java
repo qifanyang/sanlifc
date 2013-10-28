@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Field;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -57,6 +60,7 @@ public class ToolUI extends JFrame {
 	}
 
 	private void initUI() {
+		LanguageLoader.getInstance().init();
 		// try {
 		// icon =
 		// ImageIO.read(getClass().getClassLoader().getResourceAsStream("com/help/seasky32.png"));
@@ -79,6 +83,7 @@ public class ToolUI extends JFrame {
 		JTabbedPane tab = new JTabbedPane();
 		tab.add("查询合同",new DataSelectPanel());
 		tab.add("添加合同",new DataAddPanel());
+		tab.add("批量编辑",BatchEditPanel.getInstance());
 		tab.add("删除合同",new DeletePanel());
 		tab.add("使用说明",new UseInfoPanel());
 		
@@ -108,7 +113,6 @@ public class ToolUI extends JFrame {
 			
 			@Override
 			public void run() {
-				LanguageLoader.getInstance().init();
 				new Thread(new Fuck()).start(); 
 			}
 		}).start();
@@ -257,4 +261,6 @@ public class ToolUI extends JFrame {
 		}
 		
 	}
+	
+	
 }

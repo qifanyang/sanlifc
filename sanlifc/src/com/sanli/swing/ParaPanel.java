@@ -604,11 +604,11 @@ public class ParaPanel extends JPanel{
 		final JButton selectBtn = new JButton("查询...");
 		JButton resetBtn = new JButton("重置...");
 		JButton exportBtn = new JButton("导出查询结果");
-		JButton importBtn = new JButton("导入数据文件");
+//		JButton importBtn = new JButton("导入数据文件");
 		btnPanel.add(selectBtn);
 		btnPanel.add(resetBtn);
 		btnPanel.add(exportBtn);
-		btnPanel.add(importBtn);
+//		btnPanel.add(importBtn);
 		tc.fill = GridBagConstraints.CENTER;
 		tc.gridy = 2;
 		tc.gridx = 1;
@@ -653,7 +653,7 @@ public class ParaPanel extends JPanel{
 				ExportDialog.getInstance().showExport();
 			}
 		});
-		importBtn.addActionListener(new ImportExcelAction());
+//		importBtn.addActionListener(new ImportAction());
 		
 		addDatePickerEvent();
 	}
@@ -745,10 +745,7 @@ public class ParaPanel extends JPanel{
 					}else{
 //						AppWinUtils.showNormalMsg("导出数据成功,可直接复制到Excel中查看,文件路径[" + filePath +"]");
 						AppWinUtils.showNormalMsg("导入Excel数据成功,文件路径[" + filePath +"]");
-//						AppController.getInstance().readdTmpList(list);
-						ShowPanel.getInstance().showInTable(list);
-						AppController.getInstance().isImport = true;
-//						ParaPanel.getInstance().
+						BatchEditPanel.getInstance().refreshTable(list);
 					}
 				} catch(Exception e1) {
 					log.error("导出数据错误 , " + e1.getMessage());

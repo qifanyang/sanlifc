@@ -3,10 +3,12 @@ package com.sanli.logic;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,6 +21,7 @@ import com.sanli.swing.DataPanel;
 import com.sanli.swing.EditPanel;
 import com.sanli.swing.ParaPanel;
 import com.sanli.swing.ToolUI;
+import com.sanli.util.LanguageLoader;
 import com.sanli.util.Utils;
 
 /**
@@ -185,6 +188,21 @@ public class AppController {
 		}
 	}
 
+	public String[] getHeader(){
+		Vector<String> vector = new Vector<String>();
+		FCBean bean = new FCBean();
+		Field[] fields = bean.getClass().getFields();
+		for(Field f : fields){
+			if(!f.getName().equals("uuid")){
+				vector.add(LanguageLoader.getInstance().getUIName(f.getName()));
+			}
+		}
+		
+		String[] ss = new String[vector.size()];
+		vector.toArray(ss);
+		return ss;
+	}
+	
 	public boolean update() {
 		try{
 			DataServer.getInstance().update(getUpdateFCBean());
