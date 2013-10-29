@@ -33,7 +33,7 @@ public class BatchEditPanel extends JPanel {
 
 	private static BatchEditPanel instance = new BatchEditPanel();
 	public ITable<FCBean> table;
-	public JPanel batchShowPanel = new JPanel();
+	public BatchPanel batchShowPanel = new BatchPanel();
 	//用于保存JTable总的List
 	public List<FCBean> beanList = new ArrayList<FCBean>();
 
@@ -60,55 +60,9 @@ public class BatchEditPanel extends JPanel {
 		return instance;
 	}
 
-	public void showInTable(List<FCBean> list) {
-		if (list == null || list.size() <= 0) {
-			return;
-		}
-		this.beanList = list;//
-		Vector<Vector<String>> rr = new Vector<Vector<String>>();
-		try {
-			for (FCBean bean : list) {
-				Field[] fields = bean.getClass().getFields();
-				Vector<String> r = new Vector<String>();
-				for (Field f : fields) {
-					if (!f.getName().equalsIgnoreCase("uuid")) {
-						Class<?> type = f.getType();
-						if (type == int.class) {
-							r.add(String.valueOf(f.getInt(bean) <= 0 ? "" : f.getInt(bean)));
-						} else if (type == long.class) {
-							r.add(Utils.millisecondToDate(f.getLong(bean)));
-						} else if (type == float.class) {
-							r.add(String.valueOf(f.getFloat(bean) <= 0 ? "" : f.getFloat(bean)));
-						} else if (type == String.class) {
-							r.add(String.valueOf(f.get(bean) == null ? "" : f.get(bean)));
-						}
-					}
-				}
-				rr.add(r);
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-
-		// Vector<String> header = new Vector<String>();
-		// for(int i = 0; i < 50; i++) {
-		// header.add(String.valueOf(i));
-		// }
-
-		table = new ITable<FCBean>(list, ToolUI.getIntance().getHeader());
-		batchShowPanel.removeAll();
-		JScrollPane scrollPane = new JScrollPane();
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
-		table.getTableHeader().setVisible(true);
-		panel.add(table.getTableHeader(), BorderLayout.PAGE_START);
-		panel.add(table, BorderLayout.CENTER);
-		scrollPane.setViewportView(panel);
-		batchShowPanel.add(scrollPane);
-		instance.updateUI();
-		table.refresh(list, ToolUI.getIntance().getHeader());
+	public void showInTable(List<FCBean> list){
+		batchShowPanel.showInTable(list);
 	}
-
 	
 	class BatchImportExcelAction implements ActionListener{
 
