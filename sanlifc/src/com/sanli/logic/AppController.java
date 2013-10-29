@@ -13,7 +13,7 @@ import java.util.Vector;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.sanli.dao.DataServer;
+import com.sanli.dao.mysql.DataServer;
 import com.sanli.model.FCBean;
 import com.sanli.model.TextFieldObject;
 import com.sanli.swing.AddPanel;

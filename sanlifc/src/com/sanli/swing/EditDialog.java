@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.JDialog;
 
-import com.sanli.dao.DataServer;
+import com.sanli.dao.mysql.DataServer;
 import com.sanli.logic.AppController;
 import com.sanli.model.FCBean;
 

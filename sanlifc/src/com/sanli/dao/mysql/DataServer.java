@@ -1,4 +1,4 @@
-package com.sanli.dao;
+package com.sanli.dao.mysql;
 
 import java.io.IOException;
 import java.io.InputStream;
