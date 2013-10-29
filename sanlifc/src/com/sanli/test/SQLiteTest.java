@@ -9,7 +9,7 @@ import java.sql.Statement;
 public class SQLiteTest {
 	 public static void main(String[] args) throws Exception {
 	        Class.forName("org.sqlite.JDBC");
-	        Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+	        Connection conn = DriverManager.getConnection("jdbc:sqlite:test.jar");
 	        Statement stat = conn.createStatement();
 	        stat.executeUpdate("drop table if exists people;");
 	        stat.executeUpdate("create table people (name, occupation);");

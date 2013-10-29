@@ -143,6 +143,19 @@ public class FCBean {
 		}
 		return isNull;
 	}
+	
+	/**覆盖当前bean的值*/
+	public void cover(FCBean bean){
+		Field[] fields = bean.getClass().getFields();
+		for(Field f : fields){
+			try {
+				this.setValue(f.getName(), f.get(bean).toString());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public static void main(String[] args) {
 //		System.out.println(new Date(System.currentTimeMillis()));
 		FCBean fcBean = new FCBean();

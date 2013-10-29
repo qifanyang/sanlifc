@@ -20,15 +20,13 @@ import com.sanli.model.TextFieldObject;
 import com.sanli.util.Utils;
 
 /**
- * 查询,编辑,插入都使用这个面板
+ * 查询,编辑,插入都使用这个面板为父面板
  *
  */
 public abstract class DataPanel extends JPanel{
 //	private final static Log log = LogFactory.getLog(ParaPanel.class);
 
 	private static final long serialVersionUID = 1L;
-	
-//	private static DataPanel instance = new DataPanel();
 	
 	public List<TextFieldObject> vlist = new ArrayList<TextFieldObject>();
 	

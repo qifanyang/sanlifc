@@ -77,7 +77,6 @@ public class DataServer {
 	public List<FCBean> select(FCBean bean){
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			
 			List<FCBean> list = session.selectList("com.sanli.data.FLowChartMapper.select", bean);
 			return list;
 		} finally {

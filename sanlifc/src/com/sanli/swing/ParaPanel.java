@@ -745,7 +745,7 @@ public class ParaPanel extends JPanel{
 					}else{
 //						AppWinUtils.showNormalMsg("导出数据成功,可直接复制到Excel中查看,文件路径[" + filePath +"]");
 						AppWinUtils.showNormalMsg("导入Excel数据成功,文件路径[" + filePath +"]");
-						BatchEditPanel.getInstance().refreshTable(list);
+						BatchEditPanel.getInstance().showInTable(list);
 					}
 				} catch(Exception e1) {
 					log.error("导出数据错误 , " + e1.getMessage());

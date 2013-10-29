@@ -7,12 +7,15 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * 加载[key,value]键值对,用于国际化
  * @author XF
  */
 public class LanguageLoader{
-	
+	private final static Log log = LogFactory.getLog(LanguageLoader.class);
 	private static LanguageLoader instance = new LanguageLoader();
 	private static Map<String, String> map = new HashMap<String, String>();
 	
@@ -26,9 +29,11 @@ public class LanguageLoader{
 		try {
 			while((line = reader.readLine()) != null){
 				if(line.startsWith("#"))continue;
-				
 				String[] strings = line.split("=");
-				map.put(strings[0], strings[1] );
+				if(strings.length != 2){
+					log.error("key=value配置错误 , str = " + line);
+				}
+				map.put(strings[0].trim(), strings[1].trim());
 			}
 		} catch(IOException e) {
 			e.printStackTrace();

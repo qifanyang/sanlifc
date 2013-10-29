@@ -20,21 +20,21 @@ import javax.swing.filechooser.FileFilter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.sanli.logic.AppController;
 import com.sanli.logic.AssetManager;
 import com.sanli.model.FCBean;
+import com.sanli.model.ITable;
 import com.sanli.util.LanguageLoader;
 import com.sanli.util.Utils;
+
 
 public class BatchEditPanel extends JPanel {
 	private static final Log log = LogFactory.getLog(BatchEditPanel.class);
 	private static final long serialVersionUID = 1L;
 
 	private static BatchEditPanel instance = new BatchEditPanel();
-	public JTable table;
-	public Vector<String> header = new Vector<String>();
+	public ITable<FCBean> table;
 	public JPanel batchShowPanel = new JPanel();
-	//用于批量导入数据-->编辑数据-->导出数据
+	//用于保存JTable总的List
 	public List<FCBean> beanList = new ArrayList<FCBean>();
 
 	private BatchEditPanel() {
@@ -60,7 +60,7 @@ public class BatchEditPanel extends JPanel {
 		return instance;
 	}
 
-	public void refreshTable(List<FCBean> list) {
+	public void showInTable(List<FCBean> list) {
 		if (list == null || list.size() <= 0) {
 			return;
 		}
@@ -72,7 +72,6 @@ public class BatchEditPanel extends JPanel {
 				Vector<String> r = new Vector<String>();
 				for (Field f : fields) {
 					if (!f.getName().equalsIgnoreCase("uuid")) {
-						addHeaderName(f.getName());
 						Class<?> type = f.getType();
 						if (type == int.class) {
 							r.add(String.valueOf(f.getInt(bean) <= 0 ? "" : f.getInt(bean)));
@@ -96,7 +95,7 @@ public class BatchEditPanel extends JPanel {
 		// header.add(String.valueOf(i));
 		// }
 
-		table = new JTable(rr, header);
+		table = new ITable<FCBean>(list, ToolUI.getIntance().getHeader());
 		batchShowPanel.removeAll();
 		JScrollPane scrollPane = new JScrollPane();
 		JPanel panel = new JPanel();
@@ -107,13 +106,9 @@ public class BatchEditPanel extends JPanel {
 		scrollPane.setViewportView(panel);
 		batchShowPanel.add(scrollPane);
 		instance.updateUI();
+		table.refresh(list, ToolUI.getIntance().getHeader());
 	}
 
-	private void addHeaderName(String name) {
-		if (header.size() < 50) {
-			header.add(LanguageLoader.getInstance().getUIName(name));
-		}
-	}
 	
 	class BatchImportExcelAction implements ActionListener{
 
@@ -156,7 +151,7 @@ public class BatchEditPanel extends JPanel {
 					}else{
 //						AppWinUtils.showNormalMsg("导出数据成功,可直接复制到Excel中查看,文件路径[" + filePath +"]");
 						AppWinUtils.showNormalMsg("导入Excel数据成功,文件路径[" + filePath +"]");
-						BatchEditPanel.getInstance().refreshTable(list);
+						BatchEditPanel.getInstance().showInTable(list);
 					}
 				} catch(Exception e1) {
 					log.error("导出数据错误 , " + e1.getMessage());
@@ -209,7 +204,7 @@ public class BatchEditPanel extends JPanel {
 					}else{
 //						AppWinUtils.showNormalMsg("导出数据成功,可直接复制到Excel中查看,文件路径[" + filePath +"]");
 						AppWinUtils.showNormalMsg("导入Excel数据成功,文件路径[" + filePath +"]");
-						BatchEditPanel.getInstance().refreshTable(list);
+						BatchEditPanel.getInstance().showInTable(list);
 					}
 				} catch(Exception e1) {
 					log.error("导出数据错误 , " + e1.getMessage());

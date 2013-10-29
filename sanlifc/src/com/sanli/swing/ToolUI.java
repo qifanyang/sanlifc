@@ -10,6 +10,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -19,10 +21,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.TitledBorder;
@@ -53,6 +53,8 @@ public class ToolUI extends JFrame {
 	public static ToolUI instancEditor;
 	public static JPanel dataSelectPanel;
 	public static JPanel dataAddPanel;
+	
+	public List<String> header = new ArrayList<String>();
 
 
 	public ToolUI() {
@@ -60,7 +62,16 @@ public class ToolUI extends JFrame {
 	}
 
 	private void initUI() {
-		LanguageLoader.getInstance().init();
+		LanguageLoader.getInstance().init();//ui显示初始化
+		//初始化Table header
+		FCBean bean = new FCBean();
+		Field[] fields = bean.getClass().getFields();
+		for(Field f : fields) {
+			if(!f.getName().equalsIgnoreCase("uuid")) {
+				header.add(LanguageLoader.getInstance().getUIName(f.getName()));
+			}
+		}
+		//==================//
 		// try {
 		// icon =
 		// ImageIO.read(getClass().getClassLoader().getResourceAsStream("com/help/seasky32.png"));
@@ -124,6 +135,9 @@ public class ToolUI extends JFrame {
 		return instancEditor;
 	}
 	
+	public List<String> getHeader(){
+		return header;
+	}
 	
 
 	public static void main(String[] dd) throws ClassNotFoundException,

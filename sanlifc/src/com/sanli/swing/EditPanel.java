@@ -41,12 +41,12 @@ public class EditPanel extends DataPanel {
 				if(!isRightFormat){
 					return;
 				}
-				boolean success = AppController.getInstance().update();
+				boolean success = AppController.getInstance().update(cache);
 				if(!success) {
 					AppWinUtils.showWarnMsg("更新数据失败");
 				} else {
 					AppWinUtils.showNormalMsg("更新数据成功");
-					ShowPanel.getInstance().showSelectResult(2);
+//					ShowPanel.getInstance().showSelectResult(2);
 				}
 			}
 		});

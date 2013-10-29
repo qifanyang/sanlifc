@@ -20,7 +20,7 @@ import com.sanli.swing.AddPanel;
 import com.sanli.swing.DataPanel;
 import com.sanli.swing.EditPanel;
 import com.sanli.swing.ParaPanel;
-import com.sanli.swing.ToolUI;
+import com.sanli.swing.ShowPanel;
 import com.sanli.util.LanguageLoader;
 import com.sanli.util.Utils;
 
@@ -203,9 +203,12 @@ public class AppController {
 		return ss;
 	}
 	
-	public boolean update() {
+	public boolean update(FCBean bean) {
 		try{
-			DataServer.getInstance().update(getUpdateFCBean());
+			FCBean updateFCBean = getUpdateFCBean();//±à¼­µÄBean
+			DataServer.getInstance().update(updateFCBean);
+			List<FCBean> list = DataServer.getInstance().select(new FCBean());
+			ShowPanel.getInstance().table.refresh(list);
 			return true;
 		}catch (Exception e) {
 			log.info("insert error ," + e);

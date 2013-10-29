@@ -1,12 +1,9 @@
 package com.sanli.swing;
 
 import java.awt.Toolkit;
-import java.util.List;
 
 import javax.swing.JDialog;
 
-import com.sanli.dao.mysql.DataServer;
-import com.sanli.logic.AppController;
 import com.sanli.model.FCBean;
 
 
@@ -31,20 +28,8 @@ public class EditDialog extends JDialog{
 		return inntance;
 	}
 	
-	public void showEditDialog(int id){
-		// π”√beanÃÓ≥‰√Ê∞Â
-		FCBean bean = null ;
-		List<FCBean> tmpList = AppController.getInstance().getTmpList();
-		for(FCBean bb : tmpList){
-			if(bb.id == id){
-				bean = bb;
-				break;
-			}
-		}
+	public void showEditDialog(FCBean bean){
 		
-		if(bean.id != id){
-			bean = DataServer.getInstance().selectOne(bean.id);
-		}
 		try {
 			editPanel.fillData(bean);
 		} catch (Exception e) {
