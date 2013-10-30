@@ -15,13 +15,12 @@ import com.sanli.dao.mysql.DataServer;
 public class SQLiteDBServer extends DataServer{
 	
 	public static void main(String[] args) {
-		String deletTable  = "drop table if exists people;";
 		SQLiteDBServer dbServer = new SQLiteDBServer();
 		SqlSession session = dbServer.sqlSessionFactory.openSession();
 		boolean ex = false;
 		try {
 			DatabaseMetaData metaData = session.getConnection().getMetaData();
-			ResultSet tables = metaData.getTables(null, null, "people", null);
+			ResultSet tables = metaData.getTables(null, null, "flowchart", null);
 			if(tables.next()){
 				System.out.println("yes");
 				ex = true;

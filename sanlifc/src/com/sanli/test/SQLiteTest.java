@@ -21,10 +21,10 @@ public class SQLiteTest {
 	        
 	        prep.addBatch();
 	        prep.setString(1, "Turing");
-	        prep.setString(2, "computers");
+//	        prep.setString(2, "computers");
 	        prep.addBatch();
 	        prep.setString(1, "Wittgenstein");
-	        prep.setString(2, "smartypants");
+//	        prep.setString(2, "smartypants");
 	        prep.addBatch();
 
 	        conn.setAutoCommit(false);
@@ -34,7 +34,7 @@ public class SQLiteTest {
 	        ResultSet rs = stat.executeQuery("select * from people;");
 	        while (rs.next()) {
 	            System.out.println("name = " + rs.getString("name"));
-	            System.out.println("job = " + rs.getString("occupation"));
+	            System.out.println("job = " + rs.getInt("occupation"));
 	        }
 	        rs.close();
 	        conn.close();
