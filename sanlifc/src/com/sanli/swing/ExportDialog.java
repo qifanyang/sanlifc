@@ -78,7 +78,7 @@ public class ExportDialog extends JDialog{
 			fileChooser.setFileFilter(new FileFilter() {
 				@Override
 				public boolean accept(File f) {
-					return f.getName().toLowerCase().endsWith(".txt") || f.getName().toLowerCase().endsWith(".xm") || f.isDirectory();
+					return f.getName().toLowerCase().endsWith(".xls") || f.getName().toLowerCase().endsWith(".xm") || f.isDirectory();
 				}
 
 				@Override
