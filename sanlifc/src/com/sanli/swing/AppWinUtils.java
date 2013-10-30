@@ -1,8 +1,6 @@
 package com.sanli.swing;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JProgressBar;
 
 /**
  * 窗口小工具

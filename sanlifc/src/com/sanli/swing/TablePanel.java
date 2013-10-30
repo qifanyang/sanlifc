@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -19,10 +18,8 @@ import javax.swing.JTable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.sanli.logic.AppController;
 import com.sanli.model.FCBean;
 import com.sanli.model.ITable;
-import com.sanli.util.LanguageLoader;
 import com.sanli.util.Utils;
 
 /**

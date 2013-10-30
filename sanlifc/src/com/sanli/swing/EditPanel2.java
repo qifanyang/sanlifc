@@ -41,7 +41,7 @@ public class EditPanel2 extends DataPanel{
 				}
 //				boolean success = AppController.getInstance().update(cache);
 				List<TextFieldObject> vList = EditPanel2.getInstance().getVList();
-				FCBean fcBean = new FCBean();
+//				FCBean fcBean = new FCBean();
 				for(TextFieldObject tfo : vList){
 					cache.setValue(tfo.getName(), tfo.getVlaue());
 				}

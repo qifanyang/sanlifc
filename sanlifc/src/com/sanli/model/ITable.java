@@ -5,8 +5,6 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -14,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  */
 public class ITable extends JTable{
-	private final static Log log = LogFactory.getLog(ITable.class);
+//	private final static Log log = LogFactory.getLog(ITable.class);
 	private static final long serialVersionUID = 1L;
 
 	private ITableModel model;
@@ -27,7 +25,6 @@ public class ITable extends JTable{
 		setModel(model);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void refresh(List<List<String>> data) {
 		this.model = new ITableModel(data, ((ITableModel) getModel()).colNames);
 		setModel(model);

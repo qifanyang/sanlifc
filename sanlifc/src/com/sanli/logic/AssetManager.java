@@ -3,12 +3,10 @@ package com.sanli.logic;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -80,7 +78,7 @@ public class AssetManager {
 		   // 其语句为：HSSFSheet sheet = workbook.getSheetAt(0);
 		   // 读取左上端单元
 		   HSSFRow row = sheet.getRow(0);
-		   HSSFCell cell = row.getCell(0);
+//		   HSSFCell cell = row.getCell(0);
 		   int y = 3;
 		   for(FCBean bean : list){
 			   int x = 0;
