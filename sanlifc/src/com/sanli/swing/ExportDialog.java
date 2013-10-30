@@ -16,12 +16,18 @@ import org.apache.commons.logging.LogFactory;
 import com.sanli.logic.AppController;
 import com.sanli.logic.AssetManager;
 
+/**
+ * 导出TablePanel面板Table中的数据
+ * @author XF
+ */
 public class ExportDialog extends JDialog{
 	private final static Log log = LogFactory.getLog(ExportDialog.class);
 
 	private static final long serialVersionUID = 1L;
 	
 	private static ExportDialog instance = new ExportDialog();
+	
+	private TablePanel tp;
 	
 	public static ExportDialog getInstance(){
 		return instance;
@@ -48,17 +54,18 @@ public class ExportDialog extends JDialog{
 		
 	}
 	
-	public void showExport(){
+	public void showExport(TablePanel tp){
 		setLocationRelativeTo(null);
 		setVisible(true);
+		this.tp = tp;
 	}
 	
 	class ExportExcelAction implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
 			
-			if(AppController.getInstance().getTmpList().size() == 0){
-				AppWinUtils.showWarnMsg("没有查询到数据,没必要导出");
+			if(!tp.isHaveData()){
+				AppWinUtils.showWarnMsg("表格中没有数据,没必要导出");
 				return;
 			}
 			
@@ -93,7 +100,7 @@ public class ExportDialog extends JDialog{
 				try {
 					boolean success = false;
 //					success = AssetManager.getInstance().exportTxt(filePath, AppController.getInstance().getTmpList());
-					success = AssetManager.getInstance().exportExcel(filePath, AppController.getInstance().getTmpList());
+					success = AssetManager.getInstance().exportExcel(filePath, tp.beanList);
 					if(!success){
 						AppWinUtils.showWarnMsg("导出数据失败");
 					}else{
@@ -149,7 +156,7 @@ public class ExportDialog extends JDialog{
 				
 				try {
 					boolean success = false;
-					success = AssetManager.getInstance().exportTxt(filePath, AppController.getInstance().getTmpList());
+					success = AssetManager.getInstance().exportTxt(filePath, tp.beanList);
 //					success = AssetManager.getInstance().exportExcel(filePath, AppController.getInstance().getTmpList());
 					if(!success){
 						AppWinUtils.showWarnMsg("导出数据失败");

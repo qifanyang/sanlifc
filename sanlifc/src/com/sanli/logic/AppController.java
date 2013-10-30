@@ -115,15 +115,31 @@ public class AppController {
 			//空的bean表示查询所有
 			List<FCBean> list = select(new FCBean());
 			//从数据库查询出来的数据,时间为long,table显示需要转换为yyyy-MM-dd
-			//这里可以使用JTable的render
-			tmpList.clear();
-			tmpList.addAll(list);
 			return list;
 		}catch (Exception e) {
 			log.info("select error ," + e);
 		}
 		return null;
 		
+	}
+	
+	public List<List<String>> covertListToTable(List<FCBean> list){
+		List<List<String>> arrayList = new ArrayList<List<String>>(list.size());
+		for(int i = 0; i < list.size(); i++){
+			List<String> rowList = arrayList.get(i);
+			FCBean bean = list.get(i);
+			Field[] fields = bean.getClass().getFields();
+			for(Field f : fields){
+				try {
+					rowList.add(f.get(bean).toString());
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
+		
+		return arrayList;
 	}
 	
 	public List<FCBean> select(FCBean bean){
@@ -208,7 +224,7 @@ public class AppController {
 			FCBean updateFCBean = getUpdateFCBean();//编辑的Bean
 			DataServer.getInstance().update(updateFCBean);
 			List<FCBean> list = DataServer.getInstance().select(new FCBean());
-			ShowPanel.getInstance().table.refresh(list);
+			ShowPanel.getInstance().showInTable(list);
 			return true;
 		}catch (Exception e) {
 			log.info("insert error ," + e);

@@ -5,11 +5,10 @@ import com.sanli.swing.AppWinUtils;
 import com.sanli.util.LanguageLoader;
 import com.sanli.util.Utils;
 
-
 /**
  * 对应数据库表的实体类
  */
-public class FCBean {
+public class FCBean implements Cloneable{
 	public int uuid;
 	public int id;
 	public String city;
@@ -61,53 +60,55 @@ public class FCBean {
 	public float fapiao_c_scale;
 	public float fapiao_c_money;
 	public String remark;
-	
+
 	/**
-	 * 成功返回0,失败返回1
+	 * 成功返回0,失败返回1,这里是读取DataPanel数据到Bean中,有格式检验
+	 * 
 	 * @param name
 	 * @param value
 	 * @return
 	 */
-	public int setValue(String name, String value){
+	public int setValue(String name, String value) {
 		try {
 			Field field = getClass().getField(name);
 			Class<?> type = field.getType();
-			if(type == int.class){
-				if(value != null && value.length() > 0){
-					if(!Utils.isNumeric(value)){
+			if(type == int.class) {
+				if(value != null && value.length() > 0) {
+					if(!Utils.isNumeric(value)) {
 						AppWinUtils.showWarnMsg(LanguageLoader.getInstance().getUIName(name) + "填写不正确, 只能填写数字");
 						return 1;
 					}
 					field.setInt(this, Integer.parseInt(value));
-				}else{
+				} else {
 					field.setInt(this, 0);
 				}
-			}else if(type == long.class){
-				if(value != null && value.length() > 0){
-					if(!Utils.isDate(value)){
+			} else if(type == long.class) {
+				if(value != null && value.length() > 0) {
+					if(!Utils.isDate(value)) {
 						AppWinUtils.showWarnMsg(LanguageLoader.getInstance().getUIName(name) + " 填写不正确, 格式 YYYY-MM-DD \n    例如 :2013-5-12");
 						return 1;
 					}
 					field.setLong(this, Utils.dateToMillisecond(value));
-				}else{
+				} else {
 					field.setLong(this, 0);
 				}
-				
-			}else if(type == float.class){
-				if(value != null && value.length() > 0){
-					if(!Utils.isNumeric(value)){
+
+			} else if(type == float.class) {
+				if(value != null && value.length() > 0) {
+					if(!Utils.isNumeric(value)) {
 						AppWinUtils.showWarnMsg(LanguageLoader.getInstance().getUIName(name) + " 填写不正确, 只能填写数字");
 						return 1;
 					}
 					field.set(this, Float.parseFloat(value));
-				}else{
+				} else {
 					field.set(this, 0);
 				}
-//				field.set(this, value == null || value.length() ==0 ? 0 : Float.parseFloat(value));
-			}else if(type == String.class){
+				// field.set(this, value == null || value.length() ==0 ? 0 :
+				// Float.parseFloat(value));
+			} else if(type == String.class) {
 				field.set(this, value);
 			}
-		} catch (Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
@@ -115,60 +116,64 @@ public class FCBean {
 
 	/**
 	 * 检查Bean是不是为空,当所有数值为0,String长度为0,则表明该Bean为Null,不可以保存到数据库,也可以不在Table中显示
+	 * 
 	 * @return
 	 */
-	public boolean isNull(){
+	public boolean isNull() {
 		boolean isNull = true;
 		try {
 			Field[] fields = this.getClass().getFields();
-			for(Field f : fields){
-				if(!f.getName().equalsIgnoreCase("uuid")){
+			for(Field f : fields) {
+				if(!f.getName().equalsIgnoreCase("uuid")) {
 					Class<?> type = f.getType();
-					if(type == int.class){
-						isNull = f.getInt(this) != 0 ? false :  true;
-					}else if(type == long.class){
-						isNull = f.getLong(this) != 0 ? false :  true;
-					}else if(type == float.class){
-						isNull = f.getFloat(this) != 0 ? false :  true;
-					}else if(type == String.class){
-						isNull = f.get(this) == null || ((String)f.get(this)).length() <= 0 ? true :  false;
+					if(type == int.class) {
+						isNull = f.getInt(this) != 0 ? false : true;
+					} else if(type == long.class) {
+						isNull = f.getLong(this) != 0 ? false : true;
+					} else if(type == float.class) {
+						isNull = f.getFloat(this) != 0 ? false : true;
+					} else if(type == String.class) {
+						isNull = f.get(this) == null || ((String) f.get(this)).length() <= 0 ? true : false;
 					}
 				}
-				if(!isNull){
+				if(!isNull) {
 					return false;
 				}
 			}
-		} catch (Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		return isNull;
 	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
 	
-	/**覆盖当前bean的值*/
-	public void cover(FCBean bean){
-		Field[] fields = bean.getClass().getFields();
-		for(Field f : fields){
-			try {
-				this.setValue(f.getName(), f.get(bean).toString());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+	public FCBean getCopy(){
+		try {
+			FCBean clone = (FCBean) clone();
+			return clone;
+		} catch(CloneNotSupportedException e) {
+			e.printStackTrace();
 		}
+		return null;
 	}
 	
 	public static void main(String[] args) {
-//		System.out.println(new Date(System.currentTimeMillis()));
+		// System.out.println(new Date(System.currentTimeMillis()));
 		FCBean fcBean = new FCBean();
 		Field[] fields = fcBean.getClass().getFields();
 		StringBuffer buf = new StringBuffer();
-		for(Field f : fields){
+		for(Field f : fields) {
 			buf.append(f.getName()).append("=\n");
 		}
 		System.out.println(buf.toString());
-//		buf.setLength(0);
-//		for(Field f : fields){
-//			buf.append("#{").append(f.getName()).append("}").append(", ");
-//		}
-//		System.out.println(buf.toString());
+		// buf.setLength(0);
+		// for(Field f : fields){
+		// buf.append("#{").append(f.getName()).append("}").append(", ");
+		// }
+		// System.out.println(buf.toString());
 	}
 }

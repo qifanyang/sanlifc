@@ -650,7 +650,7 @@ public class ParaPanel extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ExportDialog.getInstance().showExport();
+				ExportDialog.getInstance().showExport(ShowPanel.getInstance());
 			}
 		});
 //		importBtn.addActionListener(new ImportAction());
@@ -704,58 +704,6 @@ public class ParaPanel extends JPanel{
 		
 	}
 	
-	class ImportExcelAction implements ActionListener{
-
-		public void actionPerformed(ActionEvent e) {
-			
-			
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
-			fileChooser.setDialogTitle("导入数据");
-			// fileChooser.setApproveButtonText("保存");
-			// editor.getStyledDocument().getDefaultRootElement();
-			fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-			fileChooser.setFileFilter(new FileFilter() {
-				@Override
-				public boolean accept(File f) {
-					return f.getName().toLowerCase().endsWith(".xls") || f.getName().toLowerCase().endsWith(".xm") || f.isDirectory();
-				}
-
-				@Override
-				public String getDescription() {
-					return "选择要导入的Excel文件";
-				}
-			});
-			int returnVal = fileChooser.showSaveDialog(getParent());
-			if(returnVal == JFileChooser.APPROVE_OPTION) {
-				File selectedFile = fileChooser.getSelectedFile();
-				String filePath = selectedFile.getPath();
-				if(!filePath.toLowerCase().endsWith(".xls")) {
-					// 处理文件名为
-					filePath = filePath + ".xls";
-				}
-
-				log.info("导入数据 , filePath = " + filePath);
-				
-				try {
-//					 success = false;
-					 List<FCBean> list = AssetManager.getInstance().importExcel(filePath);
-					if(list.size() <= 0){
-						AppWinUtils.showWarnMsg("Excel文件中可能没有数据 !");
-					}else{
-//						AppWinUtils.showNormalMsg("导出数据成功,可直接复制到Excel中查看,文件路径[" + filePath +"]");
-						AppWinUtils.showNormalMsg("导入Excel数据成功,文件路径[" + filePath +"]");
-						BatchEditPanel.getInstance().showInTable(list);
-					}
-				} catch(Exception e1) {
-					log.error("导出数据错误 , " + e1.getMessage());
-				}finally{
-//					ExportDialog.getInstance().setVisible(false);
-				}
-
-			}
-		}
-	}
 //	public static void main(String[] args) {
 //		ParaPanel paraPanel = new ParaPanel();
 //		System.out.println(paraPanel.vlist.size());

@@ -93,7 +93,7 @@ public class ToolUI extends JFrame {
 		JTabbedPane tab = new JTabbedPane();
 		tab.add("查询合同",new DataSelectPanel());
 		tab.add("添加合同",new DataAddPanel());
-		tab.add("批量编辑",BatchEditPanel.getInstance());
+		tab.add("批量编辑",BatchPanel.getInstance());
 		tab.add("删除合同",new DeletePanel());
 		tab.add("使用说明",new UseInfoPanel());
 		

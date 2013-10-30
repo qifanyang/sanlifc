@@ -19,8 +19,10 @@ import javax.swing.JTable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.sanli.logic.AppController;
 import com.sanli.model.FCBean;
 import com.sanli.model.ITable;
+import com.sanli.util.LanguageLoader;
 import com.sanli.util.Utils;
 
 /**
@@ -32,10 +34,11 @@ public abstract class TablePanel extends JPanel {
 	private final static Log log = LogFactory.getLog(TablePanel.class);
 	private static final long serialVersionUID = 1L;
 
-	public ITable<FCBean> table;
+	public ITable table;
 	private final JPopupMenu tablePopupMenu;
 	private final JMenuItem updateMenuItem;
 	private final JMenuItem deleteMenuItem;
+	
 	
 	// 用于保存JTable总的List
 	public List<FCBean> beanList = new ArrayList<FCBean>();
@@ -43,7 +46,7 @@ public abstract class TablePanel extends JPanel {
 	public TablePanel(){
 		this.setLayout(new BorderLayout());
 		
-		table = new ITable<FCBean>();
+		table = new ITable();
 		// 创建弹出菜单
 		tablePopupMenu = new JPopupMenu();
 		updateMenuItem = new JMenuItem("修改合同");
@@ -63,7 +66,7 @@ public abstract class TablePanel extends JPanel {
 					int row = table.getSelectedRow();
 					System.out.println("row = " + row);
 					if(row > -1) {
-						doEdit(beanList.get(row).id);
+						doEdit(beanList.get(row).id, row);
 //						EditDialog.getInstance().showEditDialog(beanList.get(row).id);
 					}else{
 						AppWinUtils.showWarnMsg("没选中,请单击选中一行");
@@ -83,7 +86,7 @@ public abstract class TablePanel extends JPanel {
 					int result = JOptionPane.showConfirmDialog(ToolUI.getIntance(), "确定删除数据,不可以恢复哦", "警告", JOptionPane.YES_NO_OPTION);
 					if(result == 0){
 //						ShowPanel.getInstance().showSelectResult(2);
-						doDelete(beanList.get(row).id);
+						doDelete(beanList.get(row).id, row);
 					}else{
 						return;
 					}
@@ -109,10 +112,18 @@ public abstract class TablePanel extends JPanel {
 
 	}
 	
+	public boolean isHaveData(){
+		return beanList.size() > 0;
+	}
+	
 	/**隐藏弹出菜单*/
 	public void setPopMenu(boolean visible){
 		tablePopupMenu.setVisible(visible);
 		updateUI();
+	}
+	
+	public void refresh(){
+		table.refresh();
 	}
 	
 	public void showInTable(List<FCBean> list){
@@ -122,33 +133,33 @@ public abstract class TablePanel extends JPanel {
 		}
 
 		this.beanList = list;
-		Vector<Vector<String>> rr = new Vector<Vector<String>>();
-		try {
-			for(FCBean bean : beanList) {
-				Field[] fields = bean.getClass().getFields();
-				Vector<String> r = new Vector<String>();
-				for(Field f : fields) {
-					if(!f.getName().equalsIgnoreCase("uuid")) {
-						Class<?> type = f.getType();
-						if(type == int.class) {
-							r.add(String.valueOf(f.getInt(bean) <= 0 ? "" : f.getInt(bean)));
-						} else if(type == long.class) {
-							r.add(Utils.millisecondToDate(f.getLong(bean)));
-						} else if(type == float.class) {
-							r.add(String.valueOf(f.getFloat(bean) <= 0 ? "" : f.getFloat(bean)));
-						} else if(type == String.class) {
-							r.add(String.valueOf(f.get(bean) == null ? "" : f.get(bean)));
-						}
-					}
-				}
-				rr.add(r);
-			}
-		} catch(Exception e) {
-			System.out.println(e);
-		}
-		
+//		Vector<Vector<String>> rr = new Vector<Vector<String>>();
+//		try {
+//			for(FCBean bean : beanList) {
+//				Field[] fields = bean.getClass().getFields();
+//				Vector<String> r = new Vector<String>();
+//				for(Field f : fields) {
+//					if(!f.getName().equalsIgnoreCase("uuid")) {
+//						Class<?> type = f.getType();
+//						if(type == int.class) {
+//							r.add(String.valueOf(f.getInt(bean) <= 0 ? "" : f.getInt(bean)));
+//						} else if(type == long.class) {
+//							r.add(Utils.millisecondToDate(f.getLong(bean)));
+//						} else if(type == float.class) {
+//							r.add(String.valueOf(f.getFloat(bean) <= 0 ? "" : f.getFloat(bean)));
+//						} else if(type == String.class) {
+//							r.add(String.valueOf(f.get(bean) == null ? "" : f.get(bean)));
+//						}
+//					}
+//				}
+//				rr.add(r);
+//			}
+//		} catch(Exception e) {
+//			System.out.println(e);
+//		}
+//		
 
-		table.refresh(list, ToolUI.getIntance().getHeader());
+		table.refresh(covertListToTable(list), ToolUI.getIntance().getHeader());
 		this.removeAll();
 		table.getTableHeader().setVisible(true);
 		this.add(table.getTableHeader(), BorderLayout.PAGE_START);
@@ -156,9 +167,47 @@ public abstract class TablePanel extends JPanel {
 		this.updateUI();
 		
 	}
+	
+	public List<List<String>> covertListToTable(List<FCBean> list){
+		List<List<String>> arrayList = new ArrayList<List<String>>(list.size());
+		for(int i = 0; i < list.size(); i++){
+			ArrayList<String> rowList = new ArrayList<String>();
+			FCBean bean = list.get(i);
+			Field[] fields = bean.getClass().getFields();
+			for(Field f : fields){
+				if(f.getName().equals("uuid")){//不现实uuid
+					continue;
+				}
+				try {
+					Class<?> type = f.getType();
+					if(type == int.class){
+						rowList.add(String.valueOf(f.getInt(bean)));
+					}else if(type == long.class){
+						rowList.add(Utils.millisecondToDate(f.getLong(bean)));
+					}else if(type == float.class){
+						rowList.add(String.valueOf(f.getFloat(bean)));
+//						field.set(this, value == null || value.length() ==0 ? 0 : Float.parseFloat(value));
+					}else if(type == String.class){
+						Object object = f.get(bean);
+						if(object == null){
+							rowList.add("");
+						}else{
+							rowList.add(object.toString());
+						}
+					}
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			arrayList.add(rowList);
+		}
+		return arrayList;
+	}
 
-	public abstract void doEdit(int id);
-	public abstract void doDelete(int id);
+	
+	
+	public abstract void doEdit(int id, int row);
+	public abstract void doDelete(int id, int row);
 	
 	
 }

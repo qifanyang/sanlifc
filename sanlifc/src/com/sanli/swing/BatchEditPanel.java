@@ -1,174 +1,35 @@
 package com.sanli.swing;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.border.TitledBorder;
-import javax.swing.filechooser.FileFilter;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.sanli.logic.AssetManager;
 import com.sanli.model.FCBean;
-import com.sanli.model.ITable;
-import com.sanli.util.LanguageLoader;
-import com.sanli.util.Utils;
 
+public class BatchEditPanel extends TablePanel{
 
-public class BatchEditPanel extends JPanel {
-	private static final Log log = LogFactory.getLog(BatchEditPanel.class);
 	private static final long serialVersionUID = 1L;
 
-	private static BatchEditPanel instance = new BatchEditPanel();
-	public ITable<FCBean> table;
-	public BatchPanel batchShowPanel = new BatchPanel();
-	//用于保存JTable总的List
-	public List<FCBean> beanList = new ArrayList<FCBean>();
-
-	private BatchEditPanel() {
-		setLayout(new BorderLayout());
-		batchShowPanel.setBorder(new TitledBorder("数据预览"));
-
-		JPanel inAndOut = new JPanel();
-		JButton inBtn = new JButton("批量导入数据");
-		JButton outBtn = new JButton("批量导出数据");
-		inAndOut.add(inBtn);
-		inAndOut.add(outBtn);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setViewportView(batchShowPanel);
-
-		add(inAndOut, BorderLayout.NORTH);
-		add(scrollPane, BorderLayout.CENTER);
-		
-		inBtn.addActionListener(new BatchImportExcelAction());
-	}
-
-	public static BatchEditPanel getInstance() {
-		return instance;
-	}
-
-	public void showInTable(List<FCBean> list){
-		batchShowPanel.showInTable(list);
-	}
-	
-	class BatchImportExcelAction implements ActionListener{
-
-		public void actionPerformed(ActionEvent e) {
-			
-			
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
-			fileChooser.setDialogTitle("导入数据");
-			// fileChooser.setApproveButtonText("保存");
-			// editor.getStyledDocument().getDefaultRootElement();
-			fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-			fileChooser.setFileFilter(new FileFilter() {
-				@Override
-				public boolean accept(File f) {
-					return f.getName().toLowerCase().endsWith(".xls") || f.getName().toLowerCase().endsWith(".xm") || f.isDirectory();
-				}
-
-				@Override
-				public String getDescription() {
-					return "选择要导入的Excel文件";
-				}
-			});
-			int returnVal = fileChooser.showSaveDialog(getParent());
-			if(returnVal == JFileChooser.APPROVE_OPTION) {
-				File selectedFile = fileChooser.getSelectedFile();
-				String filePath = selectedFile.getPath();
-				if(!filePath.toLowerCase().endsWith(".xls")) {
-					// 处理文件名为
-					filePath = filePath + ".xls";
-				}
-
-				log.info("导入数据 , filePath = " + filePath);
-				
-				try {
-//					 success = false;
-					 List<FCBean> list = AssetManager.getInstance().importExcel(filePath);
-					if(list.size() <= 0){
-						AppWinUtils.showWarnMsg("Excel文件中可能没有数据 !");
-					}else{
-//						AppWinUtils.showNormalMsg("导出数据成功,可直接复制到Excel中查看,文件路径[" + filePath +"]");
-						AppWinUtils.showNormalMsg("导入Excel数据成功,文件路径[" + filePath +"]");
-						BatchEditPanel.getInstance().showInTable(list);
-					}
-				} catch(Exception e1) {
-					log.error("导出数据错误 , " + e1.getMessage());
-				}finally{
-//					ExportDialog.getInstance().setVisible(false);
-				}
-
+	@Override
+	public void doEdit(int id, int row) {
+		FCBean bean = null;
+		for(FCBean bb : beanList){
+			if(bb.id == id){
+				bean = bb;
+				break;
 			}
 		}
+		EditDialog2.getInstance().showEditDialog(bean, row);
 	}
-	
-	class BatchExportExcelAction implements ActionListener{
 
-		public void actionPerformed(ActionEvent e) {
-			
-			
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
-			fileChooser.setDialogTitle("导出数据");
-			// fileChooser.setApproveButtonText("保存");
-			// editor.getStyledDocument().getDefaultRootElement();
-			fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-			fileChooser.setFileFilter(new FileFilter() {
-				@Override
-				public boolean accept(File f) {
-					return f.getName().toLowerCase().endsWith(".xls") || f.getName().toLowerCase().endsWith(".xm") || f.isDirectory();
-				}
-
-				@Override
-				public String getDescription() {
-					return "输入到处的Excel文件名";
-				}
-			});
-			int returnVal = fileChooser.showSaveDialog(getParent());
-			if(returnVal == JFileChooser.APPROVE_OPTION) {
-				File selectedFile = fileChooser.getSelectedFile();
-				String filePath = selectedFile.getPath();
-				if(!filePath.toLowerCase().endsWith(".xls")) {
-					// 处理文件名为
-					filePath = filePath + ".xls";
-				}
-
-				log.info("导出数据 , filePath = " + filePath);
-				
-				try {
-//					 success = false;
-					 List<FCBean> list = AssetManager.getInstance().importExcel(filePath);
-					if(list.size() <= 0){
-						AppWinUtils.showWarnMsg("Excel文件中可能没有数据 !");
-					}else{
-//						AppWinUtils.showNormalMsg("导出数据成功,可直接复制到Excel中查看,文件路径[" + filePath +"]");
-						AppWinUtils.showNormalMsg("导入Excel数据成功,文件路径[" + filePath +"]");
-						BatchEditPanel.getInstance().showInTable(list);
-					}
-				} catch(Exception e1) {
-					log.error("导出数据错误 , " + e1.getMessage());
-				}finally{
-//					ExportDialog.getInstance().setVisible(false);
-				}
-
-			}
-		}
+	@Override
+	public void doDelete(int id, int row) {
+//		boolean isDelete = AppController.getInstance().deleteOne(id);
+//		if(isDelete){
+//			AppWinUtils.showNormalMsg("删除[成功]!");
+//		}else{
+//			AppWinUtils.showWarnMsg("删除[失败]!");
+//		}
+		
+//		List<FCBean> list = DataServer.getInstance().select(new FCBean());
+		beanList.remove(id);
+		showInTable(beanList);
 	}
-	
-	
+
 }

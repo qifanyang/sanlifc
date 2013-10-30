@@ -49,7 +49,7 @@ public class ShowPanel extends TablePanel{
 	}
 
 	@Override
-	public void doEdit(int id) {
+	public void doEdit(int id, int row) {
 		FCBean bean = null;
 		for(FCBean bb : beanList){
 			if(bb.id == id){
@@ -61,7 +61,7 @@ public class ShowPanel extends TablePanel{
 	}
 
 	@Override
-	public void doDelete(int id) {
+	public void doDelete(int id, int row) {
 		
 		boolean isDelete = AppController.getInstance().deleteOne(id);
 		if(isDelete){
