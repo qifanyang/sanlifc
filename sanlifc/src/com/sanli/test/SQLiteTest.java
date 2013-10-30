@@ -11,12 +11,14 @@ public class SQLiteTest {
 	        Class.forName("org.sqlite.JDBC");
 	        Connection conn = DriverManager.getConnection("jdbc:sqlite:test.jar");
 	        Statement stat = conn.createStatement();
-	        stat.executeUpdate("drop table if exists people;");
-	        stat.executeUpdate("create table people (name, occupation);");
+//	        stat.executeUpdate("drop table if exists people;");
+//	        stat.executeUpdate("create table people (name, occupation);");
 	        PreparedStatement prep = conn.prepareStatement("insert into people values (?, ?);");
 
 	        prep.setString(1, "Gandhi");
-	        prep.setString(2, "politics");
+//	        prep.setString(2, "politics");
+	        prep.setInt(2, 47);
+	        
 	        prep.addBatch();
 	        prep.setString(1, "Turing");
 	        prep.setString(2, "computers");

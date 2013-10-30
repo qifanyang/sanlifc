@@ -332,4 +332,12 @@
 		delete from flowchart where id = #{id} 
 	</delete>
 	
+	<delete id="dt" > 
+		drop table if exists people
+	</delete>
+	
+	<update id="create" parameterType="string">
+		create table people (name varchar(50), occupation varchar(50))
+	</update>
+	
 </mapper>

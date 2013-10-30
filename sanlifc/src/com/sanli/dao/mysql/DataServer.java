@@ -21,11 +21,11 @@ public class DataServer {
 	
 	private static DataServer instance = new DataServer();
 	
-	private SqlSessionFactory sqlSessionFactory;
+	protected SqlSessionFactory sqlSessionFactory;
 	
 	
 	
-	private DataServer(){
+	public DataServer(){
 		String resource = "com/sanli/data/mybatis-config.xml";
 		log.info("load myBatis config , resource path = " + resource);
 		InputStream inputStream = null;
