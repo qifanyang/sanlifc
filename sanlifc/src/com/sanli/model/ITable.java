@@ -1,7 +1,5 @@
 package com.sanli.model;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -10,7 +8,6 @@ import javax.swing.table.AbstractTableModel;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.sanli.util.Utils;
 
 /**
  * 用于显示查询数据和导入数据,提供一个弹出菜单,查询和批量导入可用到

@@ -181,11 +181,12 @@ public abstract class TablePanel extends JPanel {
 				try {
 					Class<?> type = f.getType();
 					if(type == int.class){
-						rowList.add(String.valueOf(f.getInt(bean)));
+						int x = f.getInt(bean);
+						rowList.add(x > 0 ? String.valueOf(f.getInt(bean)) : "");
 					}else if(type == long.class){
-						rowList.add(Utils.millisecondToDate(f.getLong(bean)));
+						rowList.add(f.getLong(bean) > 0 ? Utils.millisecondToDate(f.getLong(bean)):"");
 					}else if(type == float.class){
-						rowList.add(String.valueOf(f.getFloat(bean)));
+						rowList.add(f.getFloat(bean) > 0 ? String.valueOf(f.getFloat(bean)) : "");
 //						field.set(this, value == null || value.length() ==0 ? 0 : Float.parseFloat(value));
 					}else if(type == String.class){
 						Object object = f.get(bean);
