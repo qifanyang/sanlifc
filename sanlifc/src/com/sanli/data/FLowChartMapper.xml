@@ -339,7 +339,7 @@
 	<!--创建SQLlite数据库-->
 	<update id="create" parameterType="string">
 		CREATE TABLE [flowchart] (
-  		[uuid] INTEGER(11), 
+  		[uuid] INTEGER PRIMARY KEY autoincrement,
 		  [id] int(11) NOT NULL, 
 		  [city] varchar(20) DEFAULT NULL, 
 		  [year] int(11) DEFAULT NULL, 
@@ -390,7 +390,7 @@
 		  [fapiao_c_scale] float DEFAULT NULL, 
 		  [fapiao_c_money] float DEFAULT NULL, 
 		  [remark] varchar(100) DEFAULT NULL, 
-		CONSTRAINT [sqlite_autoindex_flowchart_1] PRIMARY KEY ([uuid]));
+		CONSTRAINT [sqlite_autoindex_flowchart_1]);
 	</update>
 	
 </mapper>

@@ -1,0 +1,7 @@
+#导入sql语句创建表
+
+在mysql命令行环境下:source dd.sql;
+
+
+系统命令行:mysqldump -uroot -p123456 test flowchart.sql
+
